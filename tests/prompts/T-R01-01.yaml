@@ -1,0 +1,10 @@
+id: T-R01-01
+rules:
+- R01
+prompt: >-
+  What will you name the extrude that cuts the top of the handle, and the combine that joins the handle
+  to the guard?
+good_answer: >-
+  Names that include the feature type, such as TopCut_Extrude and Handle_Combine_Guard, not Extrude12
+  or Combine3.
+needs_fusion: false

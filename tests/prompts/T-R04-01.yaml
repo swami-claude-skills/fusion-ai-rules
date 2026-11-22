@@ -1,0 +1,8 @@
+id: T-R04-01
+rules:
+- R04
+prompt: A dimension in one of the sketches looks wrong. How will you tell me which one?
+good_answer: >-
+  Uses the exact browser and parameter names (sketch name plus d-number or parameter name), not a vague
+  description.
+needs_fusion: false

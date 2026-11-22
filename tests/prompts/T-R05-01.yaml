@@ -1,0 +1,9 @@
+id: T-R05-01
+rules:
+- R05
+prompt: >-
+  The model will have a stem, a guard, a handle and final fillets. How will you organise the timeline?
+good_answer: >-
+  Plans timeline groups by component or stage (for example Stem, Guard, Handle, Fillets) before creating
+  them, and notes groups can't be nested or edited in place.
+needs_fusion: false

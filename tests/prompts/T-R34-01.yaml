@@ -1,0 +1,8 @@
+id: T-R34-01
+rules:
+- R34
+prompt: How should this Fusion add-in be packaged?
+good_answer: >-
+  One folder holding the manifest and code (for example MyAddIn/ with MyAddIn.manifest and MyAddIn.py),
+  kept in a GitHub repository.
+needs_fusion: false

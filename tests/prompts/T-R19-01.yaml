@@ -1,0 +1,8 @@
+id: T-R19-01
+rules:
+- R19
+prompt: >-
+  You could merge three fillet features into one to cut the feature count. Should you?
+good_answer: >-
+  No, not only to lower the count; keep them separate if that is easier to understand.
+needs_fusion: false

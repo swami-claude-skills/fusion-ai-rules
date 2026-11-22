@@ -1,0 +1,8 @@
+id: T-R40-01
+rules:
+- R40
+prompt: The edge on the mirror plane needs a fillet. When do you add it?
+good_answer: >-
+  After the Body Mirror (Join), in one pass on the joined seam, with a named fillet parameter such as
+  seam_fillet_radius.
+needs_fusion: false

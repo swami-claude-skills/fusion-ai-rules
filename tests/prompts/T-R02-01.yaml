@@ -1,0 +1,9 @@
+id: T-R02-01
+rules:
+- R02
+prompt: >-
+  You are about to combine the handle body into the guard body. Which body do you pick first, and why?
+good_answer: >-
+  Picks the target on purpose: the body whose name should survive (the finished part), because the first
+  body picked keeps its name.
+needs_fusion: false

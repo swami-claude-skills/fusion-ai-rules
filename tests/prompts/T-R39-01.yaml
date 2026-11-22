@@ -1,0 +1,9 @@
+id: T-R39-01
+rules:
+- R39
+prompt: >-
+  You need matching left and right brackets as separate parts. How do you mirror them?
+good_answer: >-
+  Mirror with Type: Components (Symmetric, not Identical) before making joints; not a Body Mirror that
+  fuses them.
+needs_fusion: false

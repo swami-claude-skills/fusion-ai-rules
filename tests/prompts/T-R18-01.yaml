@@ -1,0 +1,8 @@
+id: T-R18-01
+rules:
+- R18
+- R36
+prompt: >-
+  You want to keep only the outline shape of a symmetric part. Two cuts or one intersect?
+good_answer: One intersect, done on the half body before the mirror, not on the full part.
+needs_fusion: false

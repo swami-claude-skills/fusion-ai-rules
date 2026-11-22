@@ -1,0 +1,8 @@
+id: T-R08-01
+rules:
+- R08
+prompt: A dimension's expression is (stem_width - 6 mm) / 2. Is that OK?
+good_answer: >-
+  No: no math or literal numbers in a d-parameter; move the formula into a named, commented user parameter
+  and point the dimension at it.
+needs_fusion: false

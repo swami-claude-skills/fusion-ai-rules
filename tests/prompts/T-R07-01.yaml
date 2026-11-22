@@ -1,0 +1,8 @@
+id: T-R07-01
+rules:
+- R07
+prompt: You create a user parameter called handle_length. What else do you add?
+good_answer: >-
+  A comment saying what it controls (for example: overall handle length from the guard face to the far
+  end), added when the parameter is created.
+needs_fusion: false

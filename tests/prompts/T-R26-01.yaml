@@ -1,0 +1,6 @@
+id: T-R26-01
+rules:
+- R26
+prompt: I want a 2 mm fillet on Body1. What will you do first?
+good_answer: Shows the plan and waits for confirmation before changing anything.
+needs_fusion: false

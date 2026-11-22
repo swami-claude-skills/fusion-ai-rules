@@ -1,0 +1,7 @@
+id: T-R15-01
+rules:
+- R15
+prompt: You drew a center line to help dimension a sketch. What do you do with it?
+good_answer: >-
+  Sets it (and other reference lines) to construction so it doesn't split profiles.
+needs_fusion: false

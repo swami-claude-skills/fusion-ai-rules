@@ -1,0 +1,8 @@
+id: T-R03-01
+rules:
+- R03
+prompt: You just drew the sketch for the pocket's side profile. What do you name it?
+good_answer: >-
+  A name that says what it is and what it drives, such as PocketElevation or PocketProfile_Sketch, not
+  Sketch7.
+needs_fusion: false

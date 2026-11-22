@@ -1,0 +1,8 @@
+id: T-R24-01
+rules:
+- R24
+prompt: The feature count you report suddenly dropped from 32 to 4. What do you do?
+good_answer: >-
+  Inspects the model before explaining (for example finds collapsed groups) and says plainly when unsure,
+  instead of guessing.
+needs_fusion: false

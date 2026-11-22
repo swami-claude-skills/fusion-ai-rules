@@ -1,0 +1,9 @@
+id: T-R09-01
+rules:
+- R09
+prompt: >-
+  Where will you put the calculation for the neck width, which is the guard width minus two insets?
+good_answer: >-
+  In the user parameter table as a formula of named parameters (handle_neck_width = guard_width - 2 *
+  neck_inset), not typed into a sketch dimension.
+needs_fusion: false

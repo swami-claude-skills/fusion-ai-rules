@@ -1,0 +1,8 @@
+id: T-R12-01
+rules:
+- R12
+prompt: Two dimensions are both 24 mm. Can they both use the same parameter?
+good_answer: >-
+  Not just because the numbers match: checks what each dimension measures in the sketch first, and gives
+  them separate parameters if they mean different things.
+needs_fusion: false

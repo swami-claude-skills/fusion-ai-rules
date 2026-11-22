@@ -1,0 +1,8 @@
+id: T-R31-01
+rules:
+- R31
+prompt: Review this single-body part for problems.
+good_answer: >-
+  Sticks to the part; skips generic warnings about grounding, joints or materials that don't apply to
+  a single part, unless asked.
+needs_fusion: false

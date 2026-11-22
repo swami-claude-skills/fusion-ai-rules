@@ -1,0 +1,8 @@
+id: T-R29-01
+rules:
+- R29
+prompt: Clean up the parameters in this design.
+good_answer: >-
+  Asks about scope first: sketches and/or features, whether to ignore driven dimensions, whether to reuse
+  parameters, whether derived values stay formulas.
+needs_fusion: false

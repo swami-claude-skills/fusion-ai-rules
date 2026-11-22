@@ -1,0 +1,8 @@
+id: T-R25-01
+rules:
+- R25
+prompt: >-
+  You can't find a parameter for dimension d447. What might it be, and how do you report it?
+good_answer: >-
+  Checks whether it is a driven (reference) dimension and reports it as driven, not as unknown.
+needs_fusion: false

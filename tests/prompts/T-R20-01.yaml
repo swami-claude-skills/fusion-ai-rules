@@ -1,0 +1,8 @@
+id: T-R20-01
+rules:
+- R20
+prompt: Where is the lanyard hole positioned from, if the handle length can change?
+good_answer: >-
+  From the parameters that drive the part (for example measured from the handle end), so it follows when
+  handle_length changes.
+needs_fusion: false

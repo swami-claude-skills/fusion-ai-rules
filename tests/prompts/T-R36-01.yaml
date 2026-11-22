@@ -1,0 +1,8 @@
+id: T-R36-01
+rules:
+- R36
+prompt: This bracket is symmetric left to right. How will you model it?
+good_answer: >-
+  Models a half (or quarter) on the native origin planes, then one Mirror (Bodies, Join) across an origin
+  plane; seam fillets after the mirror; no full block with matching cuts.
+needs_fusion: false

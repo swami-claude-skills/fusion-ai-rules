@@ -1,0 +1,41 @@
+name: Test result
+description: Report a test run of the rules in one AI, using a test kit from the Rule Set page.
+title: "Test run: "
+labels: [test-result]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing. Get the test kit for your AI from the Rule Set page (Test Your AI), ask each question
+        after loading the rules, and paste the filled-in results block below. A maintainer adds it to `tests/results/`.
+  - type: dropdown
+    id: ai
+    attributes:
+      label: Which AI?
+      options: [Autodesk Assistant, ChatGPT, Claude, Gemini]
+    validations:
+      required: true
+  - type: input
+    id: surface
+    attributes:
+      label: Where and which model (if shown)
+      placeholder: Fusion 2026 Autodesk Assistant / ChatGPT project, GPT-5 / Claude Desktop with Fusion MCP
+  - type: input
+    id: version
+    attributes:
+      label: Rule set version you loaded
+      placeholder: 2.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Results block
+      description: The YAML block from the end of the test kit, with result (pass, fail, partial or n/a) and notes filled in.
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else (surprises, screenshots, a link to the chat if shareable)

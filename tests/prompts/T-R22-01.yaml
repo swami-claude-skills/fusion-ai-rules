@@ -1,0 +1,7 @@
+id: T-R22-01
+rules:
+- R22
+prompt: The model is done. Is there anything for the views?
+good_answer: >-
+  Creates custom named views for the key angles (for example Front_Key, Pocket_Detail).
+needs_fusion: false
