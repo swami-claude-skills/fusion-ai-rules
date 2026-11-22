@@ -1,0 +1,29 @@
+id: R13
+title: Fully constrain every sketch
+category: Sketches
+priority: Must
+status: Proven
+rule: Fully constrain every sketch before using it in a feature.
+why: A fully constrained sketch only changes when a parameter changes.
+good: Every sketch shows as fully constrained
+avoid: Sketch lines that can still be dragged
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

@@ -1,0 +1,31 @@
+id: R09
+title: All math in the user table
+category: Parameters
+priority: Must
+status: Proven
+rule: >-
+  Keep all arithmetic in the user parameter table. A derived value stays a formula there, built from other
+  named parameters.
+why: There is one place to find and change every calculation.
+good: handle_neck_width = guard_width - 2 * neck_inset
+avoid: A formula typed into a sketch dimension
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

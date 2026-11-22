@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Rule Set page (read and export the rules)
+    url: https://swami-claude-skills.github.io/fusion-ai-rules/
+    about: Browse the current rules and download them for your AI.

@@ -1,0 +1,30 @@
+id: R11
+title: Break up long formulas
+category: Parameters
+priority: Should
+status: Untested
+rule: >-
+  Split a long formula into named intermediate parameters, so each term says what it does.
+why: A reader can check each step instead of decoding one long expression.
+good: pocket_rise, then pocket_floor_end = pocket_floor_start + pocket_rise
+avoid: One parameter holding a five-term slope formula
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

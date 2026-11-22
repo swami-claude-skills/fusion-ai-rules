@@ -1,0 +1,69 @@
+name: Rules
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: rules-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml jsonschema
+      - name: Validate rules
+        run: python3 build/build.py check
+
+  publish:
+    if: github.event_name != 'pull_request'
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml jsonschema
+      - name: Build exports
+        run: python3 build/build.py build dist
+      - name: Read version
+        id: ver
+        run: echo "version=$(python3 -c "import yaml;print(yaml.safe_load(open('ruleset.yaml'))['version'])")" >> "$GITHUB_OUTPUT"
+      - name: Create release if this version is new
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VER: ${{ steps.ver.outputs.version }}
+        run: |
+          if gh release view "v$VER" >/dev/null 2>&1; then
+            echo "Release v$VER already exists; skipping."
+          else
+            (cd dist && zip -qr "../fusion-ai-rules-v$VER.zip" .)
+            notes=$(awk "/^## \\[?$VER\\]?/{f=1;next} /^## /{f=0} f" CHANGELOG.md)
+            gh release create "v$VER" "fusion-ai-rules-v$VER.zip" \
+              dist/fusion-modeling-rules.md dist/fusion-modeling-rules.txt \
+              dist/fusion-modeling-rules-compact.txt dist/fusion-modeling-rules.json \
+              dist/AGENTS.md dist/GEMINI.md dist/CLAUDE.md \
+              --title "Fusion AI Rules v$VER" --notes "${notes:-Rule set v$VER}"
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deploy
+        uses: actions/deploy-pages@v4

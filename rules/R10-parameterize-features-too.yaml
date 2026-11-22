@@ -1,0 +1,32 @@
+id: R10
+title: Parameterize features too
+category: Parameters
+priority: Must
+status: Proven
+rule: >-
+  Parameterize extrude distances, fillet radii and other feature values, not only sketch dimensions. Reuse
+  one parameter when two values must always match.
+why: >-
+  A first cleanup that covers only sketches still leaves hard-coded values in the features.
+good: Fillet radius = edge_fillet_r
+avoid: Fillet radius typed as 0.25 mm
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

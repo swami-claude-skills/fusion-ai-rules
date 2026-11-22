@@ -1,0 +1,29 @@
+id: R22
+title: Create named views
+category: Views & Reporting
+priority: Nice to have
+status: Untested
+rule: Create custom named views for the model's key angles.
+why: Anyone can jump to the same view quickly.
+good: 'Views: Front_Key, Pocket_Detail'
+avoid: Only the standard view cube views
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

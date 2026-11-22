@@ -1,0 +1,32 @@
+id: R12
+title: Link by meaning, not by value
+category: Parameters
+priority: Must
+status: Failed once
+rule: >-
+  Before linking a dimension to a parameter, check what the dimension actually measures in the sketch.
+  Equal numbers are not the same dimension.
+why: >-
+  A link made because values match breaks the model silently when the parameter changes.
+good: 24 mm pocket end gets its own pocket_in_end parameter
+avoid: 24 mm pocket end linked to handle_length because both were 24
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

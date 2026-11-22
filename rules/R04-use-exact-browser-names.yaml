@@ -1,0 +1,30 @@
+id: R04
+title: Use exact browser names
+category: Naming
+priority: Should
+status: Proven
+rule: >-
+  When you report or ask about an item, use its exact name from the browser or parameter table.
+why: Exact names remove guessing about which component, sketch or parameter is meant.
+good: '"PocketElevation sketch, dimension d447"'
+avoid: '"the second sketch on the handle"'
+works:
+  aa: 2
+  gpt: 1
+  claude: 1
+  gem: 1
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

@@ -1,0 +1,58 @@
+name: Propose a rule
+description: Suggest a new rule, or a change to an existing one, for AIs that model in Autodesk Fusion.
+title: "Rule proposal: "
+labels: [candidate]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a rule. Proposals become candidates (C- IDs) and get an R number only when accepted.
+        By proposing, you agree your text may be published under CC BY 4.0 with credit to you.
+  - type: input
+    id: title
+    attributes:
+      label: Short title
+      placeholder: Model symmetric parts as halves
+    validations:
+      required: true
+  - type: textarea
+    id: rule
+    attributes:
+      label: The rule, as you would tell the AI
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters (what goes wrong without it)
+    validations:
+      required: true
+  - type: input
+    id: good
+    attributes:
+      label: Good example
+  - type: input
+    id: avoid
+    attributes:
+      label: Example to avoid
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Suggested priority
+      options: [Must, Should, Nice to have]
+    validations:
+      required: true
+  - type: checkboxes
+    id: ais
+    attributes:
+      label: Which AIs did you see this with?
+      options:
+        - label: Autodesk Assistant
+        - label: Claude
+        - label: ChatGPT
+        - label: Gemini
+  - type: input
+    id: changes
+    attributes:
+      label: Existing rule this changes or conflicts with (if any)
+      placeholder: R17

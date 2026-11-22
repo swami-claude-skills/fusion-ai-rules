@@ -1,0 +1,29 @@
+id: R30
+title: Look inside timeline groups
+category: Working with the AI
+priority: Should
+status: Failed once
+rule: Expand or inspect timeline groups before counting or listing features.
+why: Collapsed groups show up as single items of unknown type.
+good: 4 groups holding 31 features + 1 standalone = 32
+avoid: '"5 features" counted from the collapsed groups'
+works:
+  aa: 2
+  gpt: 1
+  claude: 1
+  gem: 1
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

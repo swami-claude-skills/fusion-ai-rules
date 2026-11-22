@@ -1,0 +1,31 @@
+id: R29
+title: Ask about scope
+category: Working with the AI
+priority: Should
+status: Proven
+rule: >-
+  Before a cleanup, ask about scope: sketches and features, whether to ignore driven dimensions, whether
+  to reuse parameters, and whether derived values stay formulas.
+why: A clear scope avoids a sketch-only pass that misses the features.
+good: Three questions answered before the one pass
+avoid: A cleanup that silently skipped every feature
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

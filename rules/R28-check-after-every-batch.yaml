@@ -1,0 +1,31 @@
+id: R28
+title: Check after every batch
+category: Working with the AI
+priority: Must
+status: Proven
+rule: >-
+  After every batch, check an invariant such as volume or mass, plus errors, warnings and timeline health.
+  Don't save until told.
+why: A hard number proves the change did not move geometry.
+good: '"Handle volume still 5.654 cm3; no errors or warnings"'
+avoid: Saving straight after a batch without a check
+works:
+  aa: 2
+  gpt: 1
+  claude: 1
+  gem: 1
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

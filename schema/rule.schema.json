@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/swami-claude-skills/fusion-ai-rules/schema/rule.schema.json",
+  "title": "Fusion AI rule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "category", "priority", "status", "rule", "works"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^(R[0-9]{2,3}|C-[0-9]{4}-[0-9]{2}-[0-9]{2})$",
+           "description": "R## for accepted rules (permanent, never reused); C-YYYY-MM-NN for candidates"},
+    "title": {"type": "string", "minLength": 3},
+    "category": {"type": "string", "description": "A name from categories.yaml (candidates may propose a new one)"},
+    "priority": {"enum": ["Must", "Should", "Nice to have"]},
+    "status": {"enum": ["Proven", "Failed once", "Untested", "Candidate", "Deprecated"]},
+    "rule": {"type": "string", "minLength": 10},
+    "why": {"type": "string"},
+    "good": {"type": "string"},
+    "avoid": {"type": "string"},
+    "works": {
+      "type": "object", "additionalProperties": false,
+      "required": ["aa", "gpt", "claude", "gem"],
+      "description": "2 = applies; 1 = only when the AI is connected to the live Fusion model (MCP) or writing a Fusion script; 0 = does not apply",
+      "properties": {"aa": {"enum": [0, 1, 2]}, "gpt": {"enum": [0, 1, 2]}, "claude": {"enum": [0, 1, 2]}, "gem": {"enum": [0, 1, 2]}}
+    },
+    "scope": {"type": "array", "items": {"enum": ["any", "part", "assembly", "sketch", "cam", "drawings", "electronics", "add-ins"]}},
+    "conflicts_with": {"type": "array", "items": {"type": "string"}},
+    "supersedes": {"type": "array", "items": {"type": "string"}},
+    "related": {"type": "array", "items": {"type": "string"}},
+    "source": {
+      "type": "object",
+      "properties": {"note": {"type": "string"}, "link": {"type": "string"}, "author_label": {"type": "string"}, "file": {"type": "string"}}
+    },
+    "proposed_id": {"type": "string", "pattern": "^R[0-9]{2,3}$"},
+    "authors": {"type": "array", "items": {"type": "string"}},
+    "reviewers": {"type": "array", "items": {"type": "string"}},
+    "added_in": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "changed_in": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "deprecated_in": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "tests": {"type": "array", "items": {"type": "string"}},
+    "notes_per_ai": {"type": "object", "additionalProperties": {"type": "string"}}
+  }
+}

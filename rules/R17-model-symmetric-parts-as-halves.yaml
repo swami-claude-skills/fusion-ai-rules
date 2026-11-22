@@ -1,0 +1,32 @@
+id: R17
+title: Model symmetric parts as halves
+category: Features
+priority: Should
+status: Failed once
+rule: >-
+  Model a symmetric part as a half (or a quarter where that works) and mirror the feature or body in the
+  timeline, not inside the sketch.
+why: >-
+  Half the dimensions and half the fillets, and the mirror is visible in the timeline.
+good: Half the key, then Mirror_Body
+avoid: The whole part drawn out with midpoints and no mirror
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

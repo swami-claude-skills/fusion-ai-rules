@@ -1,0 +1,30 @@
+id: R25
+title: Say when a dimension is driven
+category: Views & Reporting
+priority: Should
+status: Failed once
+rule: >-
+  Identify driven (reference) dimensions as driven, instead of reporting them as unknown.
+why: Driven dimensions can't break anything, so they need no fix.
+good: '"d447 is a driven reference dimension in PocketElevation"'
+avoid: '"I couldn''t identify d447 to d449"'
+works:
+  aa: 2
+  gpt: 1
+  claude: 1
+  gem: 1
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

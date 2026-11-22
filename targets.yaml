@@ -1,0 +1,249 @@
+ais:
+- key: aa
+  name: Autodesk Assistant
+  short: AA
+  colour: '#38dafa'
+- key: gpt
+  name: ChatGPT
+  short: ChatGPT
+  colour: '#38fa79'
+- key: claude
+  name: Claude
+  short: Claude
+  colour: '#fa9938'
+- key: gem
+  name: Gemini
+  short: Gemini
+  colour: '#3879fa'
+selections:
+- id: all
+  label: All
+- id: must-should
+  label: Must + Should
+  priority:
+  - Must
+  - Should
+- id: must
+  label: Must only
+  priority:
+  - Must
+- id: proven
+  label: Proven only
+  status:
+  - Proven
+targets:
+- id: aa-chat
+  ai: aa
+  label: Autodesk Assistant · paste at the start of a chat
+  format: compact
+  include_why: false
+  include_examples: false
+  file: fusion-rules-autodesk-assistant.txt
+  limit: null
+  limit_note: >-
+    No published limit. Shorter leaves more room for your request and uses fewer tokens.
+  where: Paste as the first message of every new Assistant chat in Fusion.
+  tip: Tick Must + Should to keep it short.
+- id: gpt-ci
+  ai: gpt
+  label: ChatGPT · custom instructions
+  format: titles
+  include_why: false
+  include_examples: false
+  file: fusion-rules-chatgpt-instructions.txt
+  limit:
+  - 1500
+  - 5000
+  limit_note: 1,500 characters a field; reported 5,000 on paid plans since July 2026.
+  where: Settings, Personalization, custom instructions field.
+  soft_label: free plan
+  hard_label: paid plans, as reported
+  tip: >-
+    Titles only fits the free limit; on a paid plan switch the format to compact and tick Must + Should.
+    Put the full rules in a Project file.
+- id: gpt-project
+  ai: gpt
+  label: ChatGPT · project file
+  format: md
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.md
+  limit: null
+  limit_note: Files can hold the whole set.
+  where: >-
+    Add the file to a ChatGPT project, and tell the project instructions to follow it.
+- id: gpt-gpt
+  ai: gpt
+  label: ChatGPT · custom GPT
+  format: md
+  include_why: true
+  include_examples: false
+  file: fusion-modeling-rules.md
+  limit:
+  - 8000
+  - null
+  limit_note: 8,000 characters in the Instructions box; no limit as a Knowledge file.
+  where: Paste into the GPT's Instructions, or upload under Knowledge if it is too long.
+- id: gpt-chat
+  ai: gpt
+  label: ChatGPT · attach to a chat
+  format: md
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.md
+  limit: null
+  limit_note: A file holds the whole set.
+  where: Attach the file to a chat with "Follow these rules."
+- id: gpt-codex
+  ai: gpt
+  label: ChatGPT Codex · AGENTS.md
+  format: md
+  include_why: true
+  include_examples: true
+  file: AGENTS.md
+  limit: null
+  limit_note: No practical limit, but keep it focused.
+  where: AGENTS.md in the root of your add-in or script repository.
+- id: gpt-api
+  ai: gpt
+  label: ChatGPT API · system prompt
+  format: txt
+  include_why: true
+  include_examples: false
+  file: fusion-rules-system-prompt.txt
+  limit: null
+  limit_note: Counts toward each request's tokens.
+  where: The system (developer) message of your own app.
+- id: cl-project
+  ai: claude
+  label: Claude · project file
+  format: md
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.md
+  limit: null
+  limit_note: Project knowledge holds long files.
+  where: >-
+    Project knowledge on claude.ai or Claude Desktop, with "Follow the Fusion modeling rules file" in
+    the project instructions.
+- id: cl-skill
+  ai: claude
+  label: Claude · skill (SKILL.md)
+  format: skill
+  include_why: true
+  include_examples: true
+  file: SKILL.md
+  limit: null
+  limit_note: No practical limit.
+  where: >-
+    SKILL.md in a folder named fusion-modeling-rules, zipped and uploaded as a skill (claude.ai, Desktop)
+    or placed in a skills folder (Claude Code).
+  tip: Claude loads it by itself whenever a task is about Fusion modeling.
+- id: cl-prefs
+  ai: claude
+  label: Claude · profile preferences
+  format: compact
+  include_why: false
+  include_examples: false
+  file: fusion-rules-claude-preferences.txt
+  limit:
+  - 3000
+  - null
+  limit_note: >-
+    Keep it short; these apply to every chat, not just modeling. 3,000 characters is a sensible ceiling.
+  where: Your profile preferences in Claude's settings.
+  tip: Tick Must only; use a skill or project file for the rest.
+- id: cl-code
+  ai: claude
+  label: Claude Code · CLAUDE.md
+  format: md
+  include_why: true
+  include_examples: true
+  file: CLAUDE.md
+  limit: null
+  limit_note: Read at the start of every session; keep it focused.
+  where: CLAUDE.md in the project folder, or ~/.claude/CLAUDE.md for every project.
+- id: gem-skill
+  ai: gem
+  label: Gemini · skill (formerly a Gem)
+  format: md
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.md
+  limit: null
+  limit_note: No published limit found for skill files.
+  where: Add the file to a Gemini skill, and tell the skill's instructions to follow it.
+- id: gem-saved
+  ai: gem
+  label: Gemini · Saved info
+  format: titles
+  include_why: false
+  include_examples: false
+  file: fusion-rules-gemini-saved-info.txt
+  limit:
+  - 1500
+  - null
+  limit_note: >-
+    No published limit found; keep it under about 1,500 characters since it applies to every chat.
+  where: Settings, Saved info.
+  tip: Titles only keeps it short; untick Nice to have rules if it is still long.
+- id: gem-chat
+  ai: gem
+  label: Gemini · attach to a chat
+  format: md
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.md
+  limit: null
+  limit_note: A file holds the whole set.
+  where: Attach the file to a chat with "Follow these rules."
+- id: gem-cli
+  ai: gem
+  label: Gemini CLI · GEMINI.md
+  format: md
+  include_why: true
+  include_examples: true
+  file: GEMINI.md
+  limit: null
+  limit_note: No documented limit.
+  where: GEMINI.md in the project root, or ~/.gemini/GEMINI.md for every project.
+- id: gem-api
+  ai: gem
+  label: Gemini API · system instructions
+  format: txt
+  include_why: true
+  include_examples: false
+  file: fusion-rules-system-instructions.txt
+  limit: null
+  limit_note: Counts toward each request's tokens.
+  where: The system instruction of your own app.
+- id: any-md
+  ai: any
+  label: Any AI · Markdown file
+  format: md
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.md
+  limit: null
+  limit_note: None.
+  where: Anywhere that takes a file or pasted text.
+- id: any-txt
+  ai: any
+  label: Any AI · plain text
+  format: txt
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.txt
+  limit: null
+  limit_note: None.
+  where: Anywhere that doesn't show formatting.
+- id: any-json
+  ai: any
+  label: Any tool · JSON
+  format: json
+  include_why: true
+  include_examples: true
+  file: fusion-modeling-rules.json
+  limit: null
+  limit_note: None.
+  where: Scripts, other tools, backups, and re-importing on this page.

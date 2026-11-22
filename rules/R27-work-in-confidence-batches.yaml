@@ -1,0 +1,31 @@
+id: R27
+title: Work in confidence batches
+category: Working with the AI
+priority: Must
+status: Proven
+rule: >-
+  Give every proposed change a confidence (high, medium, low) and a reason. Apply high-confidence changes
+  first, then medium, then low, as separate batches.
+why: The safest changes go first and mistakes stay small.
+good: 4 high links, check, then 6 medium links
+avoid: All 17 links in one go before any review
+works:
+  aa: 2
+  gpt: 1
+  claude: 1
+  gem: 1
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

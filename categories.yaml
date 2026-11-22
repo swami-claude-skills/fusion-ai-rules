@@ -1,0 +1,19 @@
+categories:
+- name: Naming
+  colour: '#38dafa'
+- name: Timeline
+  colour: '#38fa79'
+- name: Parameters
+  colour: '#dafa38'
+- name: Sketches
+  colour: '#fa9938'
+- name: Features
+  colour: '#fa3899'
+- name: Robustness
+  colour: '#ea38fa'
+- name: Views & Reporting
+  colour: '#7938fa'
+- name: Working with the AI
+  colour: '#3879fa'
+- name: Files & Setup
+  colour: '#fa3838'

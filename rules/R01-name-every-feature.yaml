@@ -1,0 +1,32 @@
+id: R01
+title: Name every feature
+category: Naming
+priority: Must
+status: Failed once
+rule: >-
+  Name every feature, not only components, bodies, sketches and parameters, and put the feature type in
+  the name.
+why: >-
+  Default names such as Combine1 and Combine2 tell a reader nothing about what the step does.
+good: TopCut_Extrude, Handle_Combine_Guard
+avoid: Combine1, Combine2, Combine3
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

@@ -1,0 +1,31 @@
+id: R33
+title: One version number everywhere
+category: Files & Setup
+priority: Should
+status: Untested
+rule: >-
+  Use one version number (major.minor.patch) everywhere: challenge, folder, manifest and scripts. Never
+  copy new work into an old version's folder.
+why: Avoids mix-ups like the V5 and V6 files in the session.
+good: Folder, manifest and script header all say 1.2.0
+avoid: V6 files sitting inside the V5 folder
+works:
+  aa: 0
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

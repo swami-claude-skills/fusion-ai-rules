@@ -1,0 +1,31 @@
+id: R31
+title: Skip what doesn't apply
+category: Working with the AI
+priority: Nice to have
+status: Untested
+rule: >-
+  Skip generic warnings that don't fit the job, such as grounding, joints or material on a single part
+  that isn't an assembly, unless asked.
+why: Noise hides the findings that matter.
+good: Findings limited to the part itself
+avoid: Warnings about grounding a single printed part
+works:
+  aa: 2
+  gpt: 1
+  claude: 1
+  gem: 1
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

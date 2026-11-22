@@ -1,0 +1,32 @@
+id: R07
+title: Comment every parameter
+category: Parameters
+priority: Must
+status: Proven
+rule: >-
+  Give every user parameter a comment that says what it controls, written in the same session that creates
+  it.
+why: >-
+  The AI that made the parameter knows why it exists, and comments survive the parameter export.
+good: 'handle_length: overall handle length from the guard face to the far end'
+avoid: 29 parameters with empty comment fields
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

@@ -1,0 +1,42 @@
+id: C-2026-11-01
+title: Symmetry-First Modeling & Origin Body Mirroring
+category: Symmetry & Mirror
+priority: Must
+status: Candidate
+rule: >-
+  Never build a full symmetrical part and carve both sides with duplicate or intersect cuts. If a component
+  is symmetrical across one or two axes, model only 1/2 (bilateral) or 1/4 (quadrant) of the solid anchored
+  on the native Origin Planes, then complete the geometry using Mirror (Type: Bodies, Operation: Join).
+  Mirror Plane: Always select a native Origin Plane (XY, XZ, YZ) as the mirror plane—never a model face
+  or construction plane derived from a face. Timing & Fillets: Apply internal/quadrant features before
+  the Body Mirror. Apply any fillets, chamfers, or shell features that touch or cross the symmetry seam
+  after the Body Mirror. Add asymmetric features only after symmetry is joined.
+why: >-
+  Carve-from-block workflows double sketch complexity, risk silent left/right parameter drift, and cause
+  Feature Mirrors to fail topological edge checks when dimensions are flexed.
+good: >-
+  Half profile on an origin plane, shared-core features, then Mirror_Body (Bodies, Join)
+avoid: A full block with matching left and right cuts, or a mirror across a model face
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- part
+- assembly
+conflicts_with:
+- R06
+- R17
+- R18
+related:
+- R17
+source:
+  note: 'Izzy''s candidate rule #29 (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
+  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
+  author_label: '#29'
+proposed_id: R36
+authors:
+- Izzy
+reviewers: []
+tests: []

@@ -1,0 +1,30 @@
+id: R15
+title: Use construction lines
+category: Sketches
+priority: Should
+status: Untested
+rule: >-
+  Make reference geometry construction lines, and don't leave lines that split profiles.
+why: Profiles stay clean and the right regions get selected.
+good: Center line set to construction
+avoid: A reference line that splits the profile into extra regions
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

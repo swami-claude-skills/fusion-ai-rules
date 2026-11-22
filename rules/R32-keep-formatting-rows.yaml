@@ -1,0 +1,30 @@
+id: R32
+title: Keep formatting rows
+category: Working with the AI
+priority: Nice to have
+status: Untested
+rule: >-
+  When a spec or table has formatting or header rows, ignore them instead of deleting them.
+why: Files stay in sync with the originals.
+good: Header rows kept and skipped
+avoid: Header rows deleted from the spec
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

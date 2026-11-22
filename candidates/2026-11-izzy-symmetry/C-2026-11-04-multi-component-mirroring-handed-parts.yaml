@@ -1,0 +1,39 @@
+id: C-2026-11-04
+title: Multi-Component Mirroring & Handed Parts
+category: Symmetry & Mirror
+priority: Should
+status: Candidate
+rule: >-
+  Bodies vs. Components: Use Mirror (Type: Bodies, Operation: Join) for single-piece parts; use Mirror
+  (Type: Components) when creating distinct handed left/right parts or sub-assemblies. Explicit Reflection
+  Mode: Explicitly specify Symmetric vs. Identical when mirroring components so handed parts reflect properly
+  rather than duplicating without inversion. Datum Alignment & Joints: Mirror across a shared assembly/origin
+  plane before creating cross-part joints or mating constraints so joint origins and axes do not invert
+  unexpectedly.
+why: >-
+  Mirroring bodies inside a multi-part assembly can accidentally fuse separate components, while mirroring
+  components too early or against moving part faces breaks joints and assembly constraints during parameter
+  changes.
+good: >-
+  Mirror (Type: Components, Symmetric) for left and right brackets, before any joints
+avoid: A Body Mirror that fuses two separate brackets into one body
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- part
+- assembly
+conflicts_with: []
+related:
+- R17
+source:
+  note: 'Izzy''s candidate rule #29C (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
+  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
+  author_label: '#29C'
+proposed_id: R39
+authors:
+- Izzy
+reviewers: []
+tests: []

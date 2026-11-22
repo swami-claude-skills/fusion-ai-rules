@@ -1,0 +1,30 @@
+id: R19
+title: Understandable over efficient
+category: Features
+priority: Should
+status: Untested
+rule: >-
+  Don't merge features only to lower the feature count. Never trade understandability for efficiency.
+why: Separate features keep why each one was done, where, and what it relates to.
+good: Separate fillet features for the guard and the handle
+avoid: Every fillet merged into one feature
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

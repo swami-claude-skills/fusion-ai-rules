@@ -1,0 +1,31 @@
+id: R23
+title: Report what you did
+category: Views & Reporting
+priority: Must
+status: Failed once
+rule: >-
+  When you finish, report explicitly: feature count, parameters created or changed, what you changed,
+  and how you did against any target you were given.
+why: The AI only does what it is asked; an unreported target is easy to miss.
+good: '"32 features (target 22); 19 parameters added; geometry unchanged"'
+avoid: Asked for close to 22 features, never reported the count
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

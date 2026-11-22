@@ -1,0 +1,31 @@
+id: R05
+title: Group the timeline
+category: Timeline
+priority: Should
+status: Failed once
+rule: >-
+  Group the timeline by component or stage, for example stem, guard, handle and final fillets. Fusion
+  groups cannot be nested or edited in place, so plan them before creating them.
+why: A grouped timeline is easy to navigate and to hover through.
+good: '4 groups: Stem, Guard, Handle, Fillets'
+avoid: 32 loose features in one long row
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

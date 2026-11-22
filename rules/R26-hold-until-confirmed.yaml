@@ -1,0 +1,31 @@
+id: R26
+title: Hold until confirmed
+category: Working with the AI
+priority: Must
+status: Proven
+rule: >-
+  Don't take any action until I confirm. Analyse first, then show the full plan or list and wait.
+why: >-
+  Without this, the AI often starts changing the model before you have seen the plan.
+good: Plan shown, three questions asked, then one approved pass
+avoid: Changes made while still answering a question
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

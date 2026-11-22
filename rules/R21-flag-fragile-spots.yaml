@@ -1,0 +1,31 @@
+id: R21
+title: Flag fragile spots
+category: Robustness
+priority: Should
+status: Proven
+rule: >-
+  After building or changing a model, list fragile features (small fillets after merges, tight margins)
+  and name the parameters a person should flex-test.
+why: A person knows where to look before the model fails.
+good: '"Try changing handle_length and pocket_in_end and watch the far wall"'
+avoid: No warning about 0.25 mm fillets after a merge
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

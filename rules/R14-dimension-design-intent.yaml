@@ -1,0 +1,31 @@
+id: R14
+title: Dimension design intent
+category: Sketches
+priority: Should
+status: Failed once
+rule: >-
+  Dimension what matters: a full span across the symmetry line, using a center line or midpoint constraint,
+  not two half distances.
+why: The important number is visible and drives the shape.
+good: One 14 mm handle width across the center line
+avoid: 7 mm + 7 mm from a midpoint
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

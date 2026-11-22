@@ -1,0 +1,40 @@
+id: C-2026-11-02
+title: Exception Protocol — Near-Symmetrical Parts (Asymmetric Deltas)
+category: Symmetry & Mirror
+priority: Should
+status: Candidate
+rule: >-
+  Threshold Rule: Do not abandon 1/2 or 1/4 origin modeling just because a part has localized off-center
+  holes, tabs, bosses, or labels. If 70% or more of the primary solid volume is symmetrical, model the
+  shared core first, execute Mirror (Bodies, Join) across the Origin Plane, and append asymmetric features
+  after the Mirror node. No "Mirror-and-Patch": Never include a one-sided feature prior to the Body Mirror
+  and attempt to remove or fill its mirrored duplicate afterward. Partition all features strictly into
+  Pre-Mirror (Shared Core) and Post-Mirror (Asymmetric Delta). Seam-Crossing Deltas: Any off-center cutout,
+  tab, or boss that touches or crosses the symmetry plane must be modeled post-mirror on the unified body.
+  Final Dress-Up Order: Place edge fillets and chamfers that interact with post-mirror features at the
+  end of the timeline, after all asymmetric deltas are complete.
+why: >-
+  Abandoning symmetry for minor off-center features reintroduces bloated full-block timelines, while mirroring-and-patching
+  creates coplanar seam artifacts and fragile topological dependencies.
+good: Shared core, Mirror_Body, then Offcenter_Hole and Label_Emboss
+avoid: An off-center hole before the mirror, then a fill to plug its mirrored copy
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- part
+- assembly
+conflicts_with: []
+related:
+- R17
+source:
+  note: 'Izzy''s candidate rule #29A (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
+  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
+  author_label: '#29A'
+proposed_id: R37
+authors:
+- Izzy
+reviewers: []
+tests: []

@@ -1,0 +1,32 @@
+id: R08
+title: One user parameter per dimension
+category: Parameters
+priority: Must
+status: Proven
+rule: >-
+  Every sketch dimension and feature distance references exactly one user parameter. Never put math or
+  literal numbers in a model (d###) parameter expression.
+why: >-
+  Only user parameters export, and math hidden in d-parameters is hard to find and change.
+good: d361 = stem_cutout_offset
+avoid: d361 = (stem_width - 6 mm) / 2
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

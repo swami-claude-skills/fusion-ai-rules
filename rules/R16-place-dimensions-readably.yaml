@@ -1,0 +1,30 @@
+id: R16
+title: Place dimensions readably
+category: Sketches
+priority: Nice to have
+status: Failed once
+rule: >-
+  Place every dimension where a person can read it, not piled on top of other dimensions or geometry.
+why: Someone checking the sketch can read every value at a glance.
+good: Dimensions spaced outside the outline
+avoid: Dimension text stacked on the geometry
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

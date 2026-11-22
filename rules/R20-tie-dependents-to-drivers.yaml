@@ -1,0 +1,32 @@
+id: R20
+title: Tie dependents to drivers
+category: Robustness
+priority: Must
+status: Failed once
+rule: >-
+  Make dependent features, such as a pocket or a lanyard hole, follow the parameters that drive the part,
+  such as the handle length.
+why: >-
+  Changing one key value should move everything that depends on it, with no hidden collisions.
+good: Pocket and hole positions measured from the handle end
+avoid: Pocket stays put when handle_length changes and cuts into the hole
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

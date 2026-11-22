@@ -1,0 +1,37 @@
+id: C-2026-11-05
+title: Fillet Sequencing Across Mirror Planes
+category: Symmetry & Mirror
+priority: Should
+status: Candidate
+rule: >-
+  Post-Mirror Seam Fillets: Always complete the Body Mirror (Join) before applying fillets or chamfers
+  that touch, terminate on, or cross the mirror plane. Avoid Pre-Mirror Seam Half-Fillets: Do not place
+  half-fillets along the mirror boundary expecting them to merge cleanly after mirroring—let Fusion round
+  the unified seam in a single pass. Flex-Safe Radii: Assign snake_case fillet parameters (e.g., seam_fillet_radius)
+  and keep values conservative relative to adjacent wall/boss dimensions so timeline stress tests do not
+  cause fillet solver failures.
+why: >-
+  Pre-mirror fillets along a symmetry plane often create pinched seams, overlapping faces, or broken edge
+  references when dimensions flex up or down.
+good: Mirror_Body, then Seam_Fillet driven by seam_fillet_radius
+avoid: Half-fillets on the seam edge before the mirror
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- part
+- assembly
+conflicts_with: []
+related:
+- R17
+source:
+  note: 'Izzy''s candidate rule #29D (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
+  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
+  author_label: '#29D'
+proposed_id: R40
+authors:
+- Izzy
+reviewers: []
+tests: []

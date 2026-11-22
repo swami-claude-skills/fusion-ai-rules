@@ -1,0 +1,18 @@
+# Rule-set identity and version. Bump `version` in every pull request that changes rules:
+#   patch (1.0.0 -> 1.0.1) wording fix that keeps the meaning
+#   minor (1.0.1 -> 1.1.0) new rule or new export target
+#   major (1.1.0 -> 2.0.0) rule removed, meaning changed, or priority raised to Must
+name: Fusion Modeling Rules for AI
+system: Fusion AI Rules
+version: 1.0.0
+released: '2026-11-20'
+intro: >-
+  Follow these rules whenever you create or change a model in Autodesk Fusion, write a Fusion API script,
+  or write a design spec for a CAD model. MUST rules are mandatory; SHOULD rules apply unless I say otherwise;
+  NICE TO HAVE rules apply when they cost little. If a request conflicts with a rule, say so before acting.
+intro_short: >-
+  Follow these rules when you model in Autodesk Fusion or write Fusion scripts or CAD specs.
+  MUST = mandatory, SHOULD = default, NICE = when cheap. Flag any conflict before acting.
+skill_description: >-
+  Good-practice rules for creating or changing Autodesk Fusion models, parameters, sketches and timelines.
+  Use whenever you model in Fusion, write a Fusion API script, or write a CAD design spec.

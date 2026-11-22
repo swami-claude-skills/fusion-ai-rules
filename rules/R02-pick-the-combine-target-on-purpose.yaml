@@ -1,0 +1,30 @@
+id: R02
+title: Pick the combine target on purpose
+category: Naming
+priority: Should
+status: Untested
+rule: >-
+  When you combine bodies, choose the target body deliberately: the first body picked keeps its name.
+why: The final body ends up with a sensible name instead of a tool body's name.
+good: Target = the body already named for the finished part
+avoid: The finished part named after a leftover cutting body
+works:
+  aa: 2
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []

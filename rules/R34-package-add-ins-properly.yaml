@@ -1,0 +1,30 @@
+id: R34
+title: Package add-ins properly
+category: Files & Setup
+priority: Should
+status: Untested
+rule: >-
+  Package a Fusion add-in as one folder with its manifest, and keep it in a GitHub repository.
+why: It is installable, and every change is tracked.
+good: MyAddIn/ with MyAddIn.manifest and MyAddIn.py, in a repo
+avoid: Loose script files copied between folders
+works:
+  aa: 0
+  gpt: 2
+  claude: 2
+  gem: 2
+scope:
+- any
+conflicts_with: []
+related: []
+source:
+  note: Snow-thrower key session, Thu Nov 19, 2026
+  file: sources/2026-11-19-snow-thrower-key-session.md
+authors:
+- Swami
+- Izzy
+reviewers:
+- Swami
+added_in: 1.0.0
+changed_in: 1.0.0
+tests: []
