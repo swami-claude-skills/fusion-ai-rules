@@ -2,9 +2,10 @@
 
 Good-practice rules to give an AI **before it models in Autodesk Fusion** ("vibe modeling"): naming, timeline, parameters, sketches, features, robustness, reporting, and how to work with the AI. One rule set, exported in the right format for **Autodesk Assistant, Claude, ChatGPT and Gemini**.
 
-- **Download the rules (no account needed):** https://swami-claude-skills.github.io/fusion-ai-rules/
+- **Rule Set page (cards, Export Builder, how-tos, ready-made files; no account needed):** https://swami-claude-skills.github.io/fusion-ai-rules/
+- **Plain download list:** https://swami-claude-skills.github.io/fusion-ai-rules/downloads.html
 - **Latest release:** see [Releases](../../releases); every file is stamped with the rule-set version.
-- **Rule Set dashboard (cards, filters, Export Builder):** https://claude.ai/artifact/L3KyH8YpFuRxALRsjo4qQp
+- **Suggest a change:** edit a rule on the Rule Set page and press *Propose on GitHub*, or [open a proposal](../../issues/new/choose).
 
 ## Use the rules in your AI
 
@@ -29,11 +30,12 @@ Every target in [`targets.yaml`](targets.yaml) gets its own file under `targets/
 | `candidates/` | Proposed rules waiting for review (`C-YYYY-MM-NN`), one folder per batch. |
 | `categories.yaml`, `targets.yaml`, `ruleset.yaml` | Categories, export targets and selections, rule-set name and version. |
 | `schema/rule.schema.json` | What a rule file must contain. Checked on every pull request. |
-| `build/build.py` | Validates everything and writes every export (`python3 build/build.py build`). |
+| `build/build.py` | Validates everything and writes every export plus the Rule Set page (`python3 build/build.py build`). |
+| `site/` | The Rule Set page: `ruleset.html` is the page with placeholders for the rule data, version and counts; `phase2.js` and `phase2.css` add the local-draft marking and *Propose on GitHub*. Edits made on the page stay in the viewer's browser until proposed. |
 | `tests/` | Test prompts and recorded results per AI. |
 | `sources/` | Short notes on the sessions and chats the rules came from. |
 
-On every merge to `main`, a GitHub Action validates the rules, builds the exports, publishes the download page, and, if `ruleset.yaml` has a new version, creates a release.
+On every merge to `main`, a GitHub Action validates the rules, builds the exports, publishes the Rule Set page and the download list to GitHub Pages, and, if `ruleset.yaml` has a new version, creates a release.
 
 ### Rule fields
 

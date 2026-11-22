@@ -9,6 +9,9 @@ Exports match the formats of the Rule Set dashboard's Export Builder:
   md, skill (SKILL.md), txt (full plain text), compact, titles, json
 plus one file per target in targets.yaml (each with its own format and options),
 and dist/data.json for dashboards, the Fusion add-in and the MCP server.
+The Rule Set page (dist/index.html) is site/ruleset.html filled with the same data;
+  python3 build/build.py page OUT.html [PRIVATE.json]
+writes just the page. PRIVATE.json (kept outside this public repo) can add private links.
 Requires: PyYAML; jsonschema (optional but used when installed).
 """
 import json, re, sys, unicodedata, pathlib, datetime
@@ -17,6 +20,8 @@ import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PRI_ORDER = ['Must', 'Should', 'Nice to have']
+REPO = 'https://github.com/swami-claude-skills/fusion-ai-rules'
+PAGES = 'https://swami-claude-skills.github.io/fusion-ai-rules/'
 ERR, WARN = [], []
 
 
@@ -203,8 +208,7 @@ def render(fmt, rs, label, why=True, ex=True, today=None):
 
 
 def landing(index, sizes):
-    """Interim GitHub Pages page (Phase 1): every export as a direct download.
-    Phase 2 replaces it with the full Rule Set dashboard built from data.json."""
+    """Plain download page (downloads.html): every export as a direct download, no scripts."""
     from html import escape as e
     ai_name = {a['key']: a['name'] for a in tgt['ais']}
     main = ''.join(f'<tr><td><a href="{e(rel)}" download>{e(rel)}</a></td><td>{n:,}</td></tr>' for rel, n in sizes[:9])
@@ -241,6 +245,101 @@ Rules licensed CC BY 4.0.</p>
 <h2>Whole set</h2><div class="w"><table><thead><tr><th>File</th><th>Characters</th></tr></thead><tbody>{main}<tr><td><a href="data.json" download>data.json</a></td><td>everything, for tools</td></tr></tbody></table></div>
 <footer>Vibe Coding: Swami · AI: Claude</footer></body></html>
 '''
+
+
+def long_date(iso):
+    d = datetime.date.fromisoformat(str(iso))
+    return d.strftime('%a %b ') + str(d.day) + d.strftime(', %Y')
+
+
+def page_data():
+    active = [r for r in rules if r.get('status') != 'Deprecated']
+    used = [c for c in cats if any(r['category'] == c for r in active)]
+    default = {'meta': {'name': meta['name'], 'version': str(meta['version']), 'released': str(meta.get('released', '')),
+                        'intro': meta.get('intro'), 'intro_short': meta.get('intro_short')},
+               'cats': [[c, cat_colour[c]] for c in used],
+               'rules': [{'id': r['id'], 'cat': r['category'], 'title': r['title'], 'rule': r['rule'], 'why': r.get('why', ''),
+                          'good': r.get('good', ''), 'avoid': r.get('avoid', ''), 'pri': r['priority'], 'status': r['status'],
+                          'works': r['works'], 'file': r['_file']} for r in active]}
+    back = {'soft_label': 'softLabel', 'hard_label': 'hardLabel'}
+    presets = []
+    for t in tgt['targets']:
+        p = {'id': t['id'], 'ai': t['ai'], 'label': t['label'], 'fmt': t['format'], 'why': t['include_why'],
+             'ex': t['include_examples'], 'file': t['file'], 'limit': t.get('limit'), 'limitNote': t.get('limit_note'),
+             'where': t.get('where')}
+        for k in ('soft_label', 'hard_label', 'tip'):
+            if k in t:
+                p[back.get(k, k)] = t[k]
+        presets.append(p)
+    return active, default, presets
+
+
+def downloads_html(index, sizes):
+    from html import escape as e
+    ai_name = {a['key']: a['name'] for a in tgt['ais']}
+    rows = ''
+    for x in index:
+        t = next(t for t in tgt['targets'] if t['id'] == x['target'])
+        sel = next(s['label'] for s in tgt['selections'] if s['id'] == x['selection'])
+        lim = ' / ' + format(x['limit'], ',') if x['limit'] else ''
+        rows += (f'<tr><td>{e(ai_name.get(t["ai"], "Any AI"))}</td><td>{e(t["label"].split(" · ", 1)[-1])}</td>'
+                 f'<td>{e(sel)} ({x["rules"]})</td><td>{x["characters"]:,}{lim}</td>'
+                 f'<td><a href="{PAGES}{e(x["file"])}" target="_blank" rel="noopener">{e(t["file"])}</a></td></tr>')
+    whole = ''.join(f'<tr><td><a href="{PAGES}{e(rel)}" target="_blank" rel="noopener">{e(rel)}</a></td><td>{n:,}</td></tr>'
+                    for rel, n in sizes[:9])
+    v = e(str(meta['version']))
+    return (f'<div class="subsec" data-tag="files" data-desc="Ready-made files from the published set" '
+            f'data-mm-tip="Every target\'s file, built by GitHub from the published v{v} rule set; no picking needed">\n'
+            f'        <p>No need to pick rules? These files are built from the <strong>published v{v} set</strong> each time it changes, '
+            f'one per AI and place, already trimmed to fit any size limit. They don\'t include edits made on this page. Every file is '
+            f'also in the <a href="{REPO}/releases/latest" target="_blank" rel="noopener">latest GitHub release</a> as one zip.</p>\n'
+            f'        <div class="table-wrap" data-desc="Ready-made files by AI and place (v{v})"><table><thead><tr><th>AI</th><th>Place</th>'
+            f'<th>Rules</th><th>Chars / limit</th><th>File</th></tr></thead><tbody>{rows}</tbody></table></div>\n'
+            f'        <div class="table-wrap" data-desc="Whole-set files (v{v})"><table><thead><tr><th>File</th><th>Characters</th></tr></thead>'
+            f'<tbody>{whole}<tr><td><a href="{PAGES}data.json" target="_blank" rel="noopener">data.json</a></td>'
+            f'<td>everything, for tools</td></tr></tbody></table></div>\n      </div>')
+
+
+def render_page(index, sizes, private=None):
+    active, default, presets = page_data()
+    h = (ROOT / 'site/ruleset.html').read_text(encoding='utf-8')
+    js = (ROOT / 'site/phase2.js').read_text(encoding='utf-8')
+    css = (ROOT / 'site/phase2.css').read_text(encoding='utf-8')
+    dump = lambda o: json.dumps(o, ensure_ascii=False).replace('</', '<\\/')
+    count = lambda k, v: sum(1 for r in active if r[k] == v)
+    private = private or {}
+    priv = private.get('links', {})
+    mail = ("document.getElementById('mailLink').addEventListener('click', ()=>{ window.open('" + REPO +
+            "', '_blank', 'noopener'); });")
+    sub = {
+        '/*@@AMR_DEFAULT@@*/null': dump(default),
+        '/*@@AMR_PRESETS@@*/null': dump(presets),
+        '/*@@PHASE2_JS@@*/': js,
+        '  /* SEARCH-CSS:BEGIN */': css + '  /* SEARCH-CSS:BEGIN */',
+        '<!--@@DRAFT_BANNER@@-->': '<div id="amrDraft" class="amr-draft" hidden></div>',
+        '<!--@@PROPOSE_UI@@-->': ('<div class="amr-btns"><button type="button" id="amrPropose">Propose my changes on GitHub</button>'
+                                  f'<a href="{REPO}/issues?q=is%3Aissue+label%3Acandidate" target="_blank" rel="noopener">open proposals ↗</a></div>'
+                                  '<p class="amr-msg" id="amrPropMsg"></p>'),
+        '<!--@@DOWNLOADS@@-->': downloads_html(index, sizes),
+        '<!--@@PRIVATE_BYLINE@@-->': private.get('byline', ''),
+        '/*@@MAIL_JS@@*/': private.get('mail_js', mail),
+        '@@VERSION@@': str(meta['version']), '@@RELEASED_LONG@@': long_date(meta['released']),
+        '@@COUNT@@': str(len(active)),
+        '@@PRI_MUST@@': str(count('priority', 'Must')), '@@PRI_SHOULD@@': str(count('priority', 'Should')),
+        '@@PRI_NICE@@': str(count('priority', 'Nice to have')), '@@STA_PROVEN@@': str(count('status', 'Proven')),
+        '@@STA_FAILED@@': str(count('status', 'Failed once')), '@@STA_UNTESTED@@': str(count('status', 'Untested')),
+    }
+    for k, v in sub.items():
+        if k not in h:
+            ERR.append(f'site/ruleset.html: placeholder {k} missing')
+        h = h.replace(k, v)
+    h = h.replace('@@REPO@@', REPO).replace('@@PAGES@@', PAGES)
+    h = re.sub(r'<!--@@PRIV:(\w+)@@-->',
+               lambda m: priv.get(m.group(1), '<span class="priv-note">private session notes</span>'), h)
+    left = sorted(set(re.findall(r'@@[A-Z_:]+@@', h)))
+    if left:
+        ERR.append('Rule Set page: unfilled placeholders ' + ', '.join(left))
+    return h
 
 
 EXT = {'md': 'md', 'skill': 'md', 'txt': 'txt', 'compact': 'txt', 'titles': 'txt', 'json': 'json'}
@@ -294,15 +393,23 @@ def build(out):
             'rules': [{k: v for k, v in r.items() if k != '_file'} for r in rules],
             'candidates': [{k: v for k, v in r.items() if k != '_file'} for r in cands]}
     (out / 'data.json').write_text(json.dumps(data, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
-    (out / 'index.html').write_text(landing(index, sizes), encoding='utf-8')
+    (out / 'downloads.html').write_text(landing(index, sizes), encoding='utf-8')
+    (out / 'index.html').write_text(render_page(index, sizes), encoding='utf-8')
     print(f'wrote {len(files) + 2} files to {out}')
     for rel, n in sizes[:9]:
         print(f'  {rel}: {n:,} chars')
+    return index, sizes
 
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else 'check'
     if cmd == 'build' and not ERR:
         build(pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / 'dist')
+    elif cmd == 'page' and not ERR:
+        import tempfile
+        index, sizes = build(pathlib.Path(tempfile.mkdtemp()))
+        private = json.loads(pathlib.Path(sys.argv[3]).read_text()) if len(sys.argv) > 3 else None
+        pathlib.Path(sys.argv[2]).write_text(render_page(index, sizes, private), encoding='utf-8')
+        print('wrote Rule Set page', sys.argv[2])
     report()
     sys.exit(1 if ERR else 0)
