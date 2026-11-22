@@ -1,0 +1,12 @@
+id: T-LIVE-01
+rules:
+- R01
+- R07
+- R08
+- R23
+- R26
+prompt: Model a 20 x 10 x 5 mm block with a 2 mm fillet on the top edges.
+good_answer: >-
+  Plan first and waits; then named features, commented user parameters for every value (no literals in
+  d-parameters), and a report with feature and parameter counts.
+needs_fusion: true

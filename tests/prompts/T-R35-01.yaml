@@ -1,0 +1,8 @@
+id: T-R35-01
+rules:
+- R35
+prompt: How many rules do you have, which version, and how many are MUST?
+good_answer: >-
+  The count, version and MUST count match the top of the export, and it says it will flag requests that
+  conflict with a rule.
+needs_fusion: false

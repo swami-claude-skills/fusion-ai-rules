@@ -1,0 +1,8 @@
+id: T-R28-01
+rules:
+- R28
+prompt: After you change handle_length, how will you know nothing broke?
+good_answer: >-
+  Checks an invariant such as volume or mass plus errors, warnings and timeline health after the batch,
+  and doesn't save until told.
+needs_fusion: false

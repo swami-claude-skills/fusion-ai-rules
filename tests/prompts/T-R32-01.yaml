@@ -1,0 +1,7 @@
+id: T-R32-01
+rules:
+- R32
+prompt: >-
+  This parameter spreadsheet has two header rows and a blank formatting row. What do you do with them?
+good_answer: Ignores (skips) them and keeps them, instead of deleting them.
+needs_fusion: false

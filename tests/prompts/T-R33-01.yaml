@@ -1,0 +1,8 @@
+id: T-R33-01
+rules:
+- R33
+prompt: You're starting version 1.3.0 of a Fusion script. Where does the new work go?
+good_answer: >-
+  A new 1.3.0 folder with the same version number in the folder, manifest and script header; never into
+  the old version's folder.
+needs_fusion: false

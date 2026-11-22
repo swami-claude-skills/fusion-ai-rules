@@ -2,6 +2,10 @@
 
 All notable changes to the rule set. Versions follow `ruleset.yaml`.
 
+## Tests - 2026-11-22
+
+Not a rule change. Adds `tests/prompts/` (a test question and pass check for every active rule, plus three live tests on a Fusion design), the results format in `tests/results/`, a **Test result** issue form, and test kits for each AI (`tests/test-kit-<ai>.md` on the site). The build now warns about rules without a test and works out, from recorded results, which rules are backed as Proven.
+
 ## [2.0.0] - 2026-11-22
 
 Adds Izzy's Symmetry & Mirror rules, first proposed as #29 to #29D (candidates C-2026-11-01 to 05), in a new category, **Symmetry & Mirror**. 39 active rules. A major version because a rule is retired and two change meaning.

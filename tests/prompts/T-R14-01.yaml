@@ -1,0 +1,9 @@
+id: T-R14-01
+rules:
+- R14
+prompt: >-
+  The handle is 14 mm wide and symmetric about a center line. How do you dimension it?
+good_answer: >-
+  One full-span 14 mm dimension across the center line (centerline or midpoint constraint), not two 7
+  mm half distances.
+needs_fusion: false

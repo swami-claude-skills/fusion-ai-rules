@@ -116,12 +116,124 @@ for t in tgt['targets']:
         ERR.append(f'targets.yaml: {t["id"]} has unknown format {t["format"]!r}')
 
 
+# ------------------------------------------------------------------ tests and results
+AI_KEYS = ['aa', 'gpt', 'claude', 'gem']
+RESULT_VALUES = ('pass', 'fail', 'partial', 'n/a')
+tests = load_dir('tests/prompts')
+runs = load_dir('tests/results')
+active_ids = {r['id'] for r in rules if r.get('status') != 'Deprecated'}
+tids = [t.get('id') for t in tests]
+for dup in {i for i in tids if tids.count(i) > 1}:
+    ERR.append(f'duplicate test id {dup}')
+for t in tests:
+    f = t['_file']
+    if not re.fullmatch(r'T-(R\d{2,3}|LIVE)-\d{2}', str(t.get('id', ''))):
+        ERR.append(f'{f}: test id must look like T-R08-01 or T-LIVE-01')
+    elif pathlib.Path(f).stem != t['id']:
+        ERR.append(f'{f}: file name must be {t["id"]}.yaml')
+    for k in ('rules', 'prompt', 'good_answer'):
+        if not t.get(k):
+            ERR.append(f'{f}: missing {k}')
+    for x in t.get('rules') or []:
+        if x not in active_ids:
+            ERR.append(f'{f}: rule {x} is not an active rule')
+tested = {x for t in tests for x in t.get('rules') or []}
+for rid in sorted(active_ids - tested):
+    WARN.append(f'{rid} has no test prompt in tests/prompts/')
+known_tests = set(tids)
+for run in runs:
+    f = run['_file']
+    if run.get('ai') not in AI_KEYS:
+        ERR.append(f'{f}: ai must be one of {", ".join(AI_KEYS)}')
+    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(run.get('date', ''))):
+        ERR.append(f'{f}: date must look like 2026-11-23')
+    for x in run.get('results') or []:
+        if x.get('test') not in known_tests:
+            ERR.append(f'{f}: unknown test {x.get("test")}')
+        if x.get('result') not in RESULT_VALUES:
+            ERR.append(f'{f}: result for {x.get("test")} must be one of {", ".join(RESULT_VALUES)}')
+
+
+def results_matrix():
+    """Latest result per (rule, ai), the evidence-based status, and mismatches with each rule's status."""
+    tmap = {t['id']: t for t in tests}
+    latest = {}
+    for run in sorted(runs, key=lambda r: str(r.get('date'))):
+        for x in run.get('results') or []:
+            t = tmap.get(x.get('test'))
+            if not t or x.get('result') == 'n/a':
+                continue
+            for rid in t['rules']:
+                latest[(rid, run['ai'])] = {'result': x['result'], 'date': str(run['date']), 'test': t['id'],
+                                            'notes': x.get('notes', ''), 'version': str(run.get('ruleset_version', ''))}
+    rows = []
+    for r in rules:
+        if r.get('status') == 'Deprecated':
+            continue
+        cells = {a: latest.get((r['id'], a)) for a in AI_KEYS}
+        applies = [a for a in AI_KEYS if r['works'].get(a, 2) > 0]
+        res = [cells[a]['result'] for a in applies if cells[a]]
+        if 'fail' in res:
+            ev = 'Failed once'
+        elif applies and all(cells[a] and cells[a]['result'] == 'pass' for a in applies):
+            ev = 'Proven'
+        elif res:
+            ev = 'Partly tested'
+        else:
+            ev = 'No results'
+        mismatch = ''
+        if r['status'] == 'Proven' and ev != 'Proven':
+            mismatch = 'Marked Proven, but not every AI it applies to has a recorded pass'
+        elif r['status'] == 'Untested' and ev in ('Proven', 'Failed once'):
+            mismatch = f'Marked Untested, but results say {ev}'
+        elif r['status'] == 'Failed once' and ev == 'Proven':
+            mismatch = 'Marked Failed once, but every AI now passes: consider Proven'
+        rows.append({'id': r['id'], 'title': r['title'], 'status': r['status'], 'evidence': ev, 'applies': applies,
+                     'cells': cells, 'mismatch': mismatch,
+                     'tests': [t['id'] for t in tests if r['id'] in t['rules']]})
+    return rows
+
+
+KIT_AI = {'aa': ('Autodesk Assistant', 'targets/aa-chat/fusion-rules-autodesk-assistant.txt', True),
+          'gpt': ('ChatGPT', 'fusion-modeling-rules.md', False),
+          'claude': ('Claude', 'fusion-modeling-rules.md', True),
+          'gem': ('Gemini', 'fusion-modeling-rules.md', False)}
+
+
+def test_kit(ai):
+    name, rules_file, live = KIT_AI[ai]
+    works = {r['id']: r['works'].get(ai, 2) for r in rules}
+    ask = [t for t in tests if not t.get('needs_fusion') and any(works.get(x, 0) > 0 for x in t['rules'])]
+    liv = [t for t in tests if t.get('needs_fusion')] if live else []
+    v = meta['version']
+    s = f'# Test kit: {name}, rule set v{v}\n\n'
+    s += (f'1. Start a new chat in {name} and load the rules: `{rules_file}` from '
+          f'{PAGES} (upload the file, or paste its text as the first message).\n'
+          '2. Ask each question below in the same chat, one at a time, exactly as written.\n'
+          '3. Compare each answer with "Pass if". Mark pass, fail or partial; n/a when it does not apply.\n'
+          '4. Report the run with the "Test result" form on GitHub '
+          f'({REPO}/issues/new?template=test-result.yml), pasting the results block at the end.\n\n')
+    s += f'## Questions ({len(ask)})\n\n'
+    for t in ask:
+        s += f'### {t["id"]} ({", ".join(t["rules"])})\n\n> {t["prompt"]}\n\nPass if: {t["good_answer"]}\n\n'
+    if liv:
+        s += (f'## Live tests ({len(liv)})\n\nThese need {name} working on an open Fusion design'
+              f'{" (through the Fusion MCP server in Claude Desktop or Claude Code)" if ai == "claude" else ""}. '
+              'Use a new empty design for each.\n\n')
+        for t in liv:
+            s += f'### {t["id"]} ({", ".join(t["rules"])})\n\n> {t["prompt"]}\n\nPass if: {t["good_answer"]}\n\n'
+    s += ('## Results block (copy, fill in, paste into the form)\n\n```yaml\n'
+          f'date: {datetime.date.today().isoformat()}\nai: {ai}\nsurface: {name}\nmodel: \nruleset_version: {v}\n'
+          f'tester: \nresults:\n' + ''.join(f'- test: {t["id"]}\n  result: \n  notes: \n' for t in ask + liv) + '```\n')
+    return s
+
+
 def report():
     for w in WARN:
         print('warning:', w)
     for e in ERR:
         print('ERROR:', e)
-    print(f'{len(rules)} rules, {len(cands)} candidates, {len(tgt["targets"])} targets, '
+    print(f'{len(rules)} rules, {len(cands)} candidates, {len(tests)} tests, {len(runs)} test runs, {len(tgt["targets"])} targets, '
           f'version {meta.get("version")}: {"FAILED" if ERR else "OK"} ({len(ERR)} errors, {len(WARN)} warnings)')
 
 
@@ -386,6 +498,8 @@ def build(out):
         index.append({'target': t['id'], 'label': t['label'], 'file': f'targets/{t["id"]}/{t["file"]}',
                       'selection': sel, 'format': fmt, 'rules': len(rs), 'characters': len(txt), 'limit': lim, 'where': t.get('where')})
     files['targets/index.json'] = json.dumps(index, indent=1, ensure_ascii=False) + '\n'
+    for ai in AI_KEYS:
+        files[f'tests/test-kit-{ai}.md'] = test_kit(ai)
     sizes = []
     for rel, txt in files.items():
         p = out / rel
@@ -397,7 +511,10 @@ def build(out):
             'categories': [{'name': c, 'colour': cat_colour[c]} for c in cats],
             'ais': tgt['ais'], 'selections': tgt['selections'], 'targets': tgt['targets'],
             'rules': [{k: v for k, v in r.items() if k != '_file'} for r in rules],
-            'candidates': [{k: v for k, v in r.items() if k != '_file'} for r in cands]}
+            'candidates': [{k: v for k, v in r.items() if k != '_file'} for r in cands],
+            'tests': [{k: v for k, v in t.items() if k != '_file'} for t in tests],
+            'runs': [{k: v for k, v in r.items() if k != '_file'} for r in runs],
+            'matrix': results_matrix()}
     (out / 'data.json').write_text(json.dumps(data, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
     (out / 'downloads.html').write_text(landing(index, sizes), encoding='utf-8')
     (out / 'index.html').write_text(render_page(index, sizes), encoding='utf-8')

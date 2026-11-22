@@ -1,0 +1,6 @@
+id: T-R13-01
+rules:
+- R13
+prompt: When is a sketch ready to use in a feature?
+good_answer: Only when it is fully constrained.
+needs_fusion: false

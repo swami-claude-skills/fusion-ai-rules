@@ -1,0 +1,8 @@
+id: T-R27-01
+rules:
+- R27
+prompt: You have twelve parameter links to make. How do you apply them?
+good_answer: >-
+  Gives each a confidence (high, medium, low) with a reason, then applies them in separate batches: high
+  first, then medium, then low.
+needs_fusion: false

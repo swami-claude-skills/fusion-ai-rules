@@ -24,7 +24,7 @@ Section eleven, Using the Rules in Claude. Claude on the web, Claude Desktop and
 
 Section twelve, Using the Rules in Gemini. Gemini skills, which replaced Gems, Saved info, chats, the Gemini CLI and the API.
 
-Section thirteen, Test Your AI. Questions to ask after loading the rules, and what a good answer says, so you know the rules really took.
+Section thirteen, Test Your AI. Questions to ask after loading the rules, and what a good answer says, so you know the rules really took. For a full check there is a test kit for each AI, with one question for every rule, and a form to report the results.
 
 Section fourteen, Where the Rules Came From. The snow-thrower key session with Swami and Izzy that the first rules were drawn from, and Izzy's symmetry and mirror rules, which were reviewed against the others and added in version two.
 

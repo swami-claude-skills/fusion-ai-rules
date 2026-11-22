@@ -1,0 +1,12 @@
+id: T-LIVE-02
+rules:
+- R36
+- R38
+- R40
+- R28
+prompt: >-
+  Model a 60 x 30 x 8 mm plate, symmetric left to right, with a 3 mm fillet on the long top edges.
+good_answer: >-
+  Half profile on an origin plane with full-width parameters, Mirror (Bodies, Join) across the origin
+  plane, fillets after the mirror, then a volume and error check.
+needs_fusion: true

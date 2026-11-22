@@ -1,0 +1,10 @@
+id: T-R06-01
+rules:
+- R06
+- R36
+prompt: >-
+  You add an ear to a symmetric bracket and mirror it. Where does the mirror go in the timeline?
+good_answer: >-
+  Right after the last feature it mirrors; on a part modeled as a half, the body mirror comes after the
+  whole shared core.
+needs_fusion: false

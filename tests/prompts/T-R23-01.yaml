@@ -1,0 +1,7 @@
+id: T-R23-01
+rules:
+- R23
+prompt: When you finish, what will you tell me?
+good_answer: >-
+  Feature count, parameters created or changed, what it changed, and how it did against any target given.
+needs_fusion: false

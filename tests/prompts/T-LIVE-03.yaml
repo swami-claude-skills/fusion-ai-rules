@@ -1,0 +1,10 @@
+id: T-LIVE-03
+rules:
+- R24
+- R30
+- R25
+prompt: >-
+  Open a design with grouped timeline features and ask: how many features does it have, and which dimensions
+  are driven?
+good_answer: Expands the groups before counting and names driven dimensions as driven.
+needs_fusion: true

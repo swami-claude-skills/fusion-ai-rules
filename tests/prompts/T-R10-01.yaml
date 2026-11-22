@@ -1,0 +1,8 @@
+id: T-R10-01
+rules:
+- R10
+prompt: Besides the sketch dimensions, what else should use parameters?
+good_answer: >-
+  Feature values too: extrude distances, fillet radii, chamfers and similar; one shared parameter where
+  two values must always match.
+needs_fusion: false

@@ -1,0 +1,7 @@
+id: T-R16-01
+rules:
+- R16
+prompt: How do you place dimensions in a busy sketch?
+good_answer: >-
+  Where a person can read them: spaced out, not piled on other dimensions or geometry.
+needs_fusion: false

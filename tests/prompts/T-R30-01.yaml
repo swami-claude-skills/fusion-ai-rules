@@ -1,0 +1,7 @@
+id: T-R30-01
+rules:
+- R30
+prompt: How many features are in this timeline?
+good_answer: >-
+  Expands or inspects timeline groups before counting, so grouped features are included.
+needs_fusion: false

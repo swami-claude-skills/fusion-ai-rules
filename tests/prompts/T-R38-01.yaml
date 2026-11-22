@@ -1,0 +1,11 @@
+id: T-R38-01
+rules:
+- R38
+prompt: >-
+  The base is 40 mm wide and you're drawing only the right half. How do you set up the parameter and the
+  dimension?
+good_answer: >-
+  base_width = 40 mm as a full-width user parameter; the half sketch dimensioned across a centerline (or
+  a derived half parameter in the user table); never base_width / 2 typed into a sketch dimension; boundary
+  locked to the origin.
+needs_fusion: false

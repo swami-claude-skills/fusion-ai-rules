@@ -1,0 +1,6 @@
+id: T-R11-01
+rules:
+- R11
+prompt: A parameter's formula has grown to five terms. What do you do?
+good_answer: Splits it into named intermediate parameters so each term says what it does.
+needs_fusion: false

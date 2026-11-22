@@ -1,0 +1,8 @@
+id: T-R21-01
+rules:
+- R21
+prompt: >-
+  You just finished changing the model. What else do you tell me besides what you did?
+good_answer: >-
+  Lists fragile features (small fillets after merges, tight margins) and names the parameters to flex-test.
+needs_fusion: false

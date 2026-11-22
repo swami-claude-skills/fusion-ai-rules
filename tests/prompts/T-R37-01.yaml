@@ -1,0 +1,9 @@
+id: T-R37-01
+rules:
+- R37
+prompt: >-
+  The part is symmetric except for one off-center hole and a text label. Do you still model it as a half?
+good_answer: >-
+  Yes: shared core, Body Mirror, then the hole and label after the mirror; never mirror a one-sided feature
+  and patch the copy.
+needs_fusion: false
