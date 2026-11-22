@@ -11,7 +11,7 @@ Good-practice rules to give an AI **before it models in Autodesk Fusion** ("vibe
 
 | AI | Where the rules go | File |
 |---|---|---|
-| Autodesk Assistant (in Fusion) | Paste as the first message of each new chat | `targets/aa-chat/fusion-rules-autodesk-assistant.txt` |
+| Autodesk Assistant (in Fusion) | Upload or paste as the first message of each new chat | `targets/aa-chat/fusion-rules-autodesk-assistant.txt` |
 | Claude (claude.ai, Desktop) | Upload as a skill, or add to a project's knowledge | `skill/fusion-modeling-rules/SKILL.md` or `fusion-modeling-rules.md` |
 | Claude Code | `CLAUDE.md` in your add-in or script folder | `CLAUDE.md` |
 | ChatGPT | A Project file, a custom GPT, or (short version) custom instructions | `fusion-modeling-rules.md`, `targets/gpt-ci/...` |

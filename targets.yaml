@@ -34,7 +34,7 @@ selections:
 targets:
 - id: aa-chat
   ai: aa
-  label: Autodesk Assistant · paste at the start of a chat
+  label: Autodesk Assistant · upload or paste at the start of a chat
   format: compact
   include_why: false
   include_examples: false
@@ -42,7 +42,7 @@ targets:
   limit: null
   limit_note: >-
     No published limit. Shorter leaves more room for your request and uses fewer tokens.
-  where: Paste as the first message of every new Assistant chat in Fusion.
+  where: Upload or paste as the first message of every new Assistant chat in Fusion.
   tip: Tick Must + Should to keep it short.
 - id: gpt-ci
   ai: gpt

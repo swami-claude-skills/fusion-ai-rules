@@ -1,0 +1,33 @@
+This page is the Fusion modeling rule set for AI: thirty-five good-practice rules to give an AI before it builds or changes a model in Autodesk Fusion, ready to send to the Autodesk Assistant, ChatGPT, Claude or Gemini. The rules are kept in a public GitHub repository, and this page is built from it.
+
+Section one, Dashboard Summary. What the page is, a fast path for getting the rules into your AI, and a table of every section with when to use it.
+
+Section two, Search. Type a few words to find anything on the page, in any order and with small typos forgiven, narrow the results with filters, and click a result to jump straight to it.
+
+Section three, Start Here. How the page works, and what the tags mean: priority, from Must to Nice to have; status, from Proven to Untested; and the works-in badges for each AI. Your edits stay in your browser. The published rules change only through GitHub.
+
+Section four, Rule Cards. Every rule as a card, with its priority, status, the AIs it works in, the rule itself, why it matters, and a good and a bad example. A sortable index lists them all, and each card links to its rule file and history on GitHub.
+
+Section five, Editing and Importing Rules. Add, change or delete rules, import a rules file, back up, or reset. An edited set is clearly marked as your local draft, and Propose on GitHub turns your changes into a proposal for the published set.
+
+Section six, Export Builder. Pick the AI and where the rules will go, choose which rules to include, preview the result, then copy it or save it as a file. Below the builder are ready-made files for every AI and place, built from the published set and trimmed to fit any size limit.
+
+Section seven, Choosing a Format. Markdown, plain text, compact text, titles only, JSON and skill files, and when each one fits.
+
+Section eight, Comparing the AIs. Where the rules can live in each AI, how much fits, whether they are kept between chats, and whether the AI can work on your Fusion model directly.
+
+Section nine, Using the Rules in Autodesk Assistant. The Assistant has no place to save standing instructions, so you [upload](/ʌplˈoʊd/) or paste the rules as the first message of every new chat, then review each proposed change before you approve it.
+
+Section ten, Using the Rules in ChatGPT. Custom instructions, projects, custom GPTs, chat attachments, Codex and the API.
+
+Section eleven, Using the Rules in Claude. Claude on the web, Claude Desktop and Claude Code, including skills, project knowledge and the Claude dot M D file.
+
+Section twelve, Using the Rules in Gemini. Gemini skills, which replaced Gems, Saved info, chats, the Gemini CLI and the API.
+
+Section thirteen, Test Your AI. Questions to ask after loading the rules, and what a good answer says, so you know the rules really took.
+
+Section fourteen, Where the Rules Came From. The snow-thrower key session with Swami and Izzy that the rules were drawn from.
+
+Section fifteen, Mind Map. The whole page as bubbles you can open, hover for a summary, and click to jump to that spot.
+
+Section sixteen, Glossary. Every term with a dotted underline, defined and linked both ways. And section seventeen, References, lists the help pages and articles behind the how-to sections.
