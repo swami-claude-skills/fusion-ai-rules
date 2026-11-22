@@ -47,4 +47,6 @@ Conflicts resolved:
 - **Intersect cuts:** R18 is scoped: on a symmetric part, intersect the half body before the mirror, never the full part.
 - **Math in half-sketch dimensions:** R38 now uses a Centerline, or a half parameter defined in the user table as a formula of the full width. R08 and R09 are unchanged.
 
+Izzy agreed on Sun Nov 22, 2026 to publish the five rules under CC BY 4.0, with credit as author.
+
 All five are a new category, Symmetry & Mirror, with status Untested until tested in each AI (Phase 4).
