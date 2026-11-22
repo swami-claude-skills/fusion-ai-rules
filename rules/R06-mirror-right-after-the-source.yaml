@@ -4,9 +4,10 @@ category: Timeline
 priority: Should
 status: Untested
 rule: >-
-  Place each mirror directly after the feature it mirrors. If needed, use an empty base feature as a label.
+  Place each mirror directly after the last feature it mirrors. On a symmetric part, the body mirror comes
+  after the whole shared core (R36). If needed, use an empty base feature as a label.
 why: The timeline then reads in a logical order.
-good: Extrude_Ear, Mirror_Ear
+good: Extrude_Ear, Mirror_Ear; on a symmetric part, the shared core, then Mirror_Body
 avoid: Extrude_Ear, five other features, then Mirror_Ear
 works:
   aa: 2
@@ -16,7 +17,8 @@ works:
 scope:
 - any
 conflicts_with: []
-related: []
+related:
+- R36
 source:
   note: Snow-thrower key session, Thu Nov 19, 2026
   file: sources/2026-11-19-snow-thrower-key-session.md
@@ -26,5 +28,5 @@ authors:
 reviewers:
 - Swami
 added_in: 1.0.0
-changed_in: 1.0.0
+changed_in: 2.0.0
 tests: []

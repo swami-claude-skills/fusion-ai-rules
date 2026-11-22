@@ -1,8 +1,8 @@
-id: C-2026-11-04
+id: R39
 title: Multi-Component Mirroring & Handed Parts
 category: Symmetry & Mirror
 priority: Should
-status: Candidate
+status: Untested
 rule: >-
   Bodies vs. Components: Use Mirror (Type: Bodies, Operation: Join) for single-piece parts; use Mirror
   (Type: Components) when creating distinct handed left/right parts or sub-assemblies. Explicit Reflection
@@ -27,13 +27,15 @@ scope:
 - assembly
 conflicts_with: []
 related:
-- R17
+- R36
 source:
   note: 'Izzy''s candidate rule #29C (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
-  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
   author_label: '#29C'
-proposed_id: R39
+  candidate_id: C-2026-11-04
 authors:
 - Izzy
-reviewers: []
+reviewers:
+- Swami
+added_in: 2.0.0
+changed_in: 2.0.0
 tests: []

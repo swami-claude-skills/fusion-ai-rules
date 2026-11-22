@@ -1,8 +1,8 @@
-id: C-2026-11-01
+id: R36
 title: Symmetry-First Modeling & Origin Body Mirroring
 category: Symmetry & Mirror
 priority: Must
-status: Candidate
+status: Untested
 rule: >-
   Never build a full symmetrical part and carve both sides with duplicate or intersect cuts. If a component
   is symmetrical across one or two axes, model only 1/2 (bilateral) or 1/4 (quadrant) of the solid anchored
@@ -25,18 +25,20 @@ works:
 scope:
 - part
 - assembly
-conflicts_with:
-- R06
+conflicts_with: []
+supersedes:
 - R17
-- R18
 related:
-- R17
+- R06
+- R18
 source:
   note: 'Izzy''s candidate rule #29 (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
-  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
   author_label: '#29'
-proposed_id: R36
+  candidate_id: C-2026-11-01
 authors:
 - Izzy
-reviewers: []
+reviewers:
+- Swami
+added_in: 2.0.0
+changed_in: 2.0.0
 tests: []

@@ -1,4 +1,4 @@
-This page is the Fusion modeling rule set for AI: thirty-five good-practice rules to give an AI before it builds or changes a model in Autodesk Fusion, ready to send to the Autodesk Assistant, ChatGPT, Claude or Gemini. The rules are kept in a public GitHub repository, and this page is built from it.
+This page is the Fusion modeling rule set for AI: thirty-nine good-practice rules to give an AI before it builds or changes a model in Autodesk Fusion, ready to send to the Autodesk Assistant, ChatGPT, Claude or Gemini. The rules are kept in a public GitHub repository, and this page is built from it.
 
 Section one, Dashboard Summary. What the page is, a fast path for getting the rules into your AI, and a table of every section with when to use it.
 
@@ -26,7 +26,7 @@ Section twelve, Using the Rules in Gemini. Gemini skills, which replaced Gems, S
 
 Section thirteen, Test Your AI. Questions to ask after loading the rules, and what a good answer says, so you know the rules really took.
 
-Section fourteen, Where the Rules Came From. The snow-thrower key session with Swami and Izzy that the rules were drawn from.
+Section fourteen, Where the Rules Came From. The snow-thrower key session with Swami and Izzy that the first rules were drawn from, and Izzy's symmetry and mirror rules, which were reviewed against the others and added in version two.
 
 Section fifteen, Mind Map. The whole page as bubbles you can open, hover for a summary, and click to jump to that spot.
 

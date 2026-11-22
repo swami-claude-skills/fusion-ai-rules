@@ -1,8 +1,8 @@
-id: C-2026-11-02
+id: R37
 title: Exception Protocol — Near-Symmetrical Parts (Asymmetric Deltas)
 category: Symmetry & Mirror
 priority: Should
-status: Candidate
+status: Untested
 rule: >-
   Threshold Rule: Do not abandon 1/2 or 1/4 origin modeling just because a part has localized off-center
   holes, tabs, bosses, or labels. If 70% or more of the primary solid volume is symmetrical, model the
@@ -28,13 +28,15 @@ scope:
 - assembly
 conflicts_with: []
 related:
-- R17
+- R36
 source:
   note: 'Izzy''s candidate rule #29A (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
-  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
   author_label: '#29A'
-proposed_id: R37
+  candidate_id: C-2026-11-02
 authors:
 - Izzy
-reviewers: []
+reviewers:
+- Swami
+added_in: 2.0.0
+changed_in: 2.0.0
 tests: []

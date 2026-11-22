@@ -3,7 +3,9 @@ title: Intersect to keep a shape
 category: Features
 priority: Nice to have
 status: Untested
-rule: When the intent is "keep this shape", prefer one intersect over several cuts.
+rule: >-
+  When the intent is "keep this shape", prefer one intersect over several cuts. On a symmetric part, do
+  it on the half body before the mirror (R36), never on the full part.
 why: One intersect shows the intent; several cuts hide it.
 good: Intersect with the outline body
 avoid: Two cuts that remove the outer pieces
@@ -15,7 +17,8 @@ works:
 scope:
 - any
 conflicts_with: []
-related: []
+related:
+- R36
 source:
   note: Snow-thrower key session, Thu Nov 19, 2026
   file: sources/2026-11-19-snow-thrower-key-session.md
@@ -25,5 +28,5 @@ authors:
 reviewers:
 - Swami
 added_in: 1.0.0
-changed_in: 1.0.0
+changed_in: 2.0.0
 tests: []

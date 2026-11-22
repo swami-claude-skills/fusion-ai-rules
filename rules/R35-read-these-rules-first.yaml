@@ -7,7 +7,7 @@ rule: >-
   Read these rules before every modeling task, and say if a request conflicts with one of them.
 why: >-
   Out of the box an AI doesn't know good modeling practice; it just tries to do what was asked.
-good: '"Rules loaded: 35 rules, version 1.0.0"'
+good: '"Rules loaded: 39 rules, version 2.0.0"'
 avoid: Starting to model before any rules were given
 works:
   aa: 2
@@ -27,5 +27,5 @@ authors:
 reviewers:
 - Swami
 added_in: 1.0.0
-changed_in: 1.0.0
+changed_in: 2.0.0
 tests: []
