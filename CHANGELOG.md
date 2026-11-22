@@ -2,6 +2,16 @@
 
 All notable changes to the rule set. Versions follow `ruleset.yaml`.
 
+## [2.0.0] - 2026-11-22
+
+Adds Izzy's Symmetry & Mirror rules, first proposed as #29 to #29D (candidates C-2026-11-01 to 05), in a new category, **Symmetry & Mirror**. 39 active rules. A major version because a rule is retired and two change meaning.
+
+- **Added** R36 Symmetry-First Modeling & Origin Body Mirroring (Must), R37 Exception Protocol for near-symmetrical parts (Should), R38 Full-Width Parameters & Half-Sketch Dimensioning (Must), R39 Multi-Component Mirroring & Handed Parts (Should), R40 Fillet Sequencing Across Mirror Planes (Should). All Untested until Phase 4 tests.
+- **Deprecated** R17 Model symmetric parts as halves: R36 replaces it.
+- **Changed** R06: on a symmetric part, the body mirror comes after the whole shared core. R18: on a symmetric part, intersect the half body before the mirror, never the full part. R38 (from Izzy's #29B): half-sketch dimensions use a Centerline or a half parameter defined in the user table, so R08 and R09 stay as they are. R35: example updated to the new count and version.
+
+Review record: `sources/2026-11-21-izzy-symmetry-candidates.md`.
+
 ## Site - 2026-11-22
 
 Not a rule change (the rule set stays at 1.0.0). The Rule Set page is now built from this repository and published on GitHub Pages: the same cards, Export Builder and how-tos, plus ready-made files for every AI, a clear *local draft* banner and tags for edits made in the browser, a *Propose on GitHub* button that turns those edits into a proposal, and a link from each card to its rule file and history.

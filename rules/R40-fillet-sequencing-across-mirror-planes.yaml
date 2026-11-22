@@ -1,8 +1,8 @@
-id: C-2026-11-05
+id: R40
 title: Fillet Sequencing Across Mirror Planes
 category: Symmetry & Mirror
 priority: Should
-status: Candidate
+status: Untested
 rule: >-
   Post-Mirror Seam Fillets: Always complete the Body Mirror (Join) before applying fillets or chamfers
   that touch, terminate on, or cross the mirror plane. Avoid Pre-Mirror Seam Half-Fillets: Do not place
@@ -25,13 +25,15 @@ scope:
 - assembly
 conflicts_with: []
 related:
-- R17
+- R36
 source:
   note: 'Izzy''s candidate rule #29D (Symmetry & Mirror Protocol), Sat Nov 21, 2026'
-  link: https://claude.ai/code/artifact/81527489-43bf-4c65-b1ff-5d26e3781972
   author_label: '#29D'
-proposed_id: R40
+  candidate_id: C-2026-11-05
 authors:
 - Izzy
-reviewers: []
+reviewers:
+- Swami
+added_in: 2.0.0
+changed_in: 2.0.0
 tests: []

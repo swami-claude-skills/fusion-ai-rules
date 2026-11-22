@@ -217,7 +217,7 @@ def landing(index, sizes):
         t = next(t for t in tgt['targets'] if t['id'] == x['target'])
         sel = next(s['label'] for s in tgt['selections'] if s['id'] == x['selection'])
         rows += (f'<tr><td>{e(ai_name.get(t["ai"], "Any AI"))}</td><td>{e(t["label"].split(" · ", 1)[-1])}</td>'
-                 f'<td>{e(t.get("where") or "")}</td><td>{e(sel)} ({x["rules"]})</td><td>{x["characters"]:,}'
+                 f'<td>{e(t.get("where") or "")}</td><td>{e(sel)} ({x["rules"]}){", titles only" if x.get("format") == "titles" and t["format"] != "titles" else ""}</td><td>{x["characters"]:,}'
                  f'{" / " + format(x["limit"], ",") if x["limit"] else ""}</td>'
                  f'<td><a href="{e(x["file"])}" download>{e(t["file"])}</a></td></tr>')
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -283,7 +283,7 @@ def downloads_html(index, sizes):
         sel = next(s['label'] for s in tgt['selections'] if s['id'] == x['selection'])
         lim = ' / ' + format(x['limit'], ',') if x['limit'] else ''
         rows += (f'<tr><td>{e(ai_name.get(t["ai"], "Any AI"))}</td><td>{e(t["label"].split(" · ", 1)[-1])}</td>'
-                 f'<td>{e(sel)} ({x["rules"]})</td><td>{x["characters"]:,}{lim}</td>'
+                 f'<td>{e(sel)} ({x["rules"]}){", titles only" if x.get("format") == "titles" and t["format"] != "titles" else ""}</td><td>{x["characters"]:,}{lim}</td>'
                  f'<td><a href="{PAGES}{e(x["file"])}" target="_blank" rel="noopener">{e(t["file"])}</a></td></tr>')
     whole = ''.join(f'<tr><td><a href="{PAGES}{e(rel)}" target="_blank" rel="noopener">{e(rel)}</a></td><td>{n:,}</td></tr>'
                     for rel, n in sizes[:9])
@@ -364,21 +364,27 @@ def build(out):
     for t in tgt['targets']:
         # largest selection that fits the target's limit (All, then Must + Should, then Must only)
         chosen = None
-        for sel in ['all', 'must-should', 'must']:
+        # largest selection that fits the target's limit (All, then Must + Should, then Must only);
+        # if even Must only is too long, fall back to titles only in the same order
+        tries = [(t['format'], s) for s in ('all', 'must-should', 'must')]
+        if t['format'] != 'titles':
+            tries += [('titles', s) for s in ('all', 'must-should', 'must')]
+        lim = (t.get('limit') or [None])[0]
+        for fmt, sel in tries:
             rs = select(sel)
             label = t['label'] + ('' if sel == 'all' else ' - ' + next(s['label'] for s in tgt['selections'] if s['id'] == sel))
-            txt = render(t['format'], rs, label, t.get('include_why', True), t.get('include_examples', True), today=today)
-            lim = (t.get('limit') or [None])[0]
-            chosen = (sel, rs, txt)
+            if fmt != t['format']:
+                label += ' (titles only, to fit)'
+            txt = render(fmt, rs, label, t.get('include_why', True), t.get('include_examples', True), today=today)
+            chosen = (fmt, sel, rs, txt)
             if not lim or len(txt) <= lim:
                 break
-        sel, rs, txt = chosen
-        lim = (t.get('limit') or [None])[0]
+        fmt, sel, rs, txt = chosen
         if lim and len(txt) > lim:
-            WARN.append(f'{t["id"]}: even Must only is {len(txt):,} characters, over the {lim:,} limit')
+            WARN.append(f'{t["id"]}: even titles of Must only are {len(txt):,} characters, over the {lim:,} limit')
         files[f'targets/{t["id"]}/{t["file"]}'] = txt
         index.append({'target': t['id'], 'label': t['label'], 'file': f'targets/{t["id"]}/{t["file"]}',
-                      'selection': sel, 'rules': len(rs), 'characters': len(txt), 'limit': lim, 'where': t.get('where')})
+                      'selection': sel, 'format': fmt, 'rules': len(rs), 'characters': len(txt), 'limit': lim, 'where': t.get('where')})
     files['targets/index.json'] = json.dumps(index, indent=1, ensure_ascii=False) + '\n'
     sizes = []
     for rel, txt in files.items():

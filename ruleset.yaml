@@ -4,8 +4,8 @@
 #   major (1.1.0 -> 2.0.0) rule removed, meaning changed, or priority raised to Must
 name: Fusion Modeling Rules for AI
 system: Fusion AI Rules
-version: 1.0.0
-released: '2026-11-20'
+version: 2.0.0
+released: '2026-11-22'
 intro: >-
   Follow these rules whenever you create or change a model in Autodesk Fusion, write a Fusion API script,
   or write a design spec for a CAD model. MUST rules are mandatory; SHOULD rules apply unless I say otherwise;
