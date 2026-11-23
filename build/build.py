@@ -387,7 +387,7 @@ def page_data():
     for t in tgt['targets']:
         p = {'id': t['id'], 'ai': t['ai'], 'label': t['label'], 'fmt': t['format'], 'why': t['include_why'],
              'ex': t['include_examples'], 'file': t['file'], 'limit': t.get('limit'), 'limitNote': t.get('limit_note'),
-             'where': t.get('where')}
+             'where': t.get('where'), 'preamble': t.get('preamble')}
         for k in ('soft_label', 'hard_label', 'tip'):
             if k in t:
                 p[back.get(k, k)] = t[k]
@@ -497,6 +497,8 @@ def build(out):
             if fmt != t['format']:
                 label += ' (titles only, to fit)'
             txt = render(fmt, rs, label, t.get('include_why', True), t.get('include_examples', True), today=today)
+            if t.get('preamble') and fmt != 'json':
+                txt = to_ascii(t['preamble'].strip()) + '\n\n' + txt
             chosen = (fmt, sel, rs, txt)
             if not lim or len(txt) <= lim:
                 break

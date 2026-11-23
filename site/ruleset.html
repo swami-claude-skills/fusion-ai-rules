@@ -1344,7 +1344,7 @@
 <tr><td>1</td><td>Upload or paste in chat</td><td><span class="tid">Prepare</span></td><td>Open the design you want to work on first, so the Assistant has the right context.</td></tr>
 <tr><td>2</td><td>Upload or paste in chat</td><td><span class="tid">Export</span></td><td>In the Export Builder pick <strong>Autodesk Assistant · upload or paste at the start of a chat</strong>, tick Must + Should, and press Copy (to paste) or Save as (to upload the file).</td></tr>
 <tr><td>3</td><td>Upload or paste in chat</td><td><span class="tid">Open</span></td><td>Click Autodesk Assistant at the right of the Application bar, or choose it from the Help menu.</td></tr>
-<tr><td>4</td><td>Upload or paste in chat</td><td><span class="tid">Load</span></td><td>Upload or paste the rules as your first message and add: "Confirm you have these rules and the version. Don't change anything yet."</td></tr>
+<tr><td>4</td><td>Upload or paste in chat</td><td><span class="tid">Load</span></td><td>Upload or paste the rules as your first message and add: "These are my standing instructions for this chat, not reference material. Follow them, including R26. Confirm you have these rules and the version. Don't change anything yet." Without the first sentence, the Assistant treats an uploaded file as reference material and skips R26 (plan and wait).</td></tr>
 <tr><td>5</td><td>Upload or paste in chat</td><td><span class="tid">Ask</span></td><td>Make your request using exact names from the browser (components, sketches, parameters).</td></tr>
 <tr><td>6</td><td>Upload or paste in chat</td><td><span class="tid">Approve</span></td><td>Review every proposed action before you approve it. Ask for one batch at a time and a volume check after each.</td></tr>
 <tr><td>7</td><td>Health check</td><td><span class="tid">Audit</span></td><td>To check an existing model, ask: "Check this design against the rules and list every violation with a confidence level. Don't change anything."</td></tr>
@@ -1692,6 +1692,10 @@ const INTRO = (DEF.meta && DEF.meta.intro) || 'Follow these rules whenever you c
 function chosen(){ return SET.rules.filter(r => isSel(r.id)); }
 function stamp(p, rs){ return 'Version ' + versionLabel() + ' - exported ' + today() + ' - ' + rs.length + ' of ' + SET.rules.length + ' rules - for ' + p.label; }
 function build(p, o){
+  const t = build0(p, o);
+  return (p.preamble && o.fmt !== 'json') ? toAscii(p.preamble.trim()) + '\n\n' + t : t;
+}
+function build0(p, o){
   const rs = chosen(); const fmt = o.fmt;
   const PRI = r => r.pri.toUpperCase();
   if(fmt==='json'){
