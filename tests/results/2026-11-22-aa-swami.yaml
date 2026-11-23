@@ -1,0 +1,149 @@
+date: 2026-11-22
+ai: aa
+surface: Fusion (Commercial), Autodesk Assistant 1.188.43, fresh chat, all questions in one message
+model: not shown
+ruleset_version: 2.0.0
+tester: swami
+notes: >-
+  All 39 rule questions sent in one message with an instruction to answer briefly and not build anything.
+  Answered all 39 in one reply without hitting a limit. These are knowledge questions. Live tests ran in separate chats the same evening.
+results:
+- test: T-R01-01
+  result: pass
+  notes: '"Extrude Cut - Handle Top" and "Combine Join - Handle to Guard": feature type in each name.'
+- test: T-R02-01
+  result: pass
+  notes: 'Guard first, on purpose, because the first body picked keeps its name.'
+- test: T-R03-01
+  result: pass
+  notes: '"Sketch - Pocket Side Profile (Pocket Cut)": purpose and the feature it drives.'
+- test: T-R04-01
+  result: pass
+  notes: 'Exact browser or parameter-table names (sketch name plus dimension or parameter name).'
+- test: T-R05-01
+  result: pass
+  notes: 'Groups by stage (Stem, Guard, Handle, Final Fillets), planned first since groups cannot be nested or edited.'
+- test: T-R06-01
+  result: pass
+  notes: 'Right after the last feature it mirrors; after the whole shared core for a body mirror.'
+- test: T-R07-01
+  result: pass
+  notes: 'A comment saying what it controls, in the same session.'
+- test: T-R08-01
+  result: pass
+  notes: 'No; moves the formula into a named derived user parameter and points the dimension at it.'
+- test: T-R09-01
+  result: pass
+  notes: 'User parameter table: neck_width = guard_width - 2 * inset.'
+- test: T-R10-01
+  result: pass
+  notes: 'Extrude distances, fillet radii and other feature values; one shared parameter where values must match.'
+- test: T-R11-01
+  result: pass
+  notes: 'Splits into named intermediate parameters.'
+- test: T-R12-01
+  result: pass
+  notes: 'Not automatically; checks what each measures and shares only if same intent.'
+- test: T-R13-01
+  result: pass
+  notes: 'Only when fully constrained.'
+- test: T-R14-01
+  result: pass
+  notes: 'One full 14 mm span across the center line (or midpoint), not two halves; full-width parameter.'
+- test: T-R15-01
+  result: pass
+  notes: 'Makes it construction so it does not split profiles.'
+- test: T-R16-01
+  result: pass
+  notes: 'Where a person can read it, not piled on other dimensions or geometry.'
+- test: T-R18-01
+  result: pass
+  notes: 'One intersect, on the half body before the mirror.'
+- test: T-R19-01
+  result: pass
+  notes: 'No; understandability comes first.'
+- test: T-R20-01
+  result: pass
+  notes: 'From the driving parameters (handle_length) so it follows changes.'
+- test: T-R21-01
+  result: pass
+  notes: 'Lists fragile features and names parameters to flex-test.'
+- test: T-R22-01
+  result: pass
+  notes: 'Would create custom named views for key angles (called it optional; R22 is Nice to have).'
+- test: T-R23-01
+  result: pass
+  notes: 'Feature count, parameters created or changed, what changed, result against target.'
+- test: T-R24-01
+  result: pass
+  notes: 'Inspects the model first (expands groups), says plainly when unsure.'
+- test: T-R25-01
+  result: pass
+  notes: 'Probably a driven (reference) dimension; reports it as driven.'
+- test: T-R26-01
+  result: pass
+  notes: 'No action; analyses, shows the plan and waits for confirmation.'
+- test: T-R27-01
+  result: pass
+  notes: 'Confidence with a reason for each, separate batches high, medium, low, after confirmation.'
+- test: T-R28-01
+  result: pass
+  notes: 'Checks volume or mass, errors, warnings and timeline health; does not save until told.'
+- test: T-R29-01
+  result: pass
+  notes: 'Asks about scope first (sketches/features, driven dims, reuse, formulas), then plans and waits.'
+- test: T-R30-01
+  result: pass
+  notes: 'Expands or inspects timeline groups first, then counts.'
+- test: T-R31-01
+  result: pass
+  notes: 'Skips generic grounding, joint and material warnings unless asked.'
+- test: T-R32-01
+  result: pass
+  notes: 'Ignores them rather than deleting.'
+- test: T-R33-01
+  result: pass
+  notes: 'New 1.3.0 folder, same version everywhere, never into the old folder.'
+- test: T-R34-01
+  result: pass
+  notes: 'One folder with its manifest, kept in a GitHub repository.'
+- test: T-R35-01
+  result: pass
+  notes: '39 rules (R01-R40, R17 skipped), version 2.0.0, 16 MUST (correct); will flag conflicts.'
+- test: T-R36-01
+  result: pass
+  notes: 'Half on the native origin plane, Mirror (Bodies, Join), seam features after, asymmetric last.'
+- test: T-R37-01
+  result: pass
+  notes: 'Yes; shared core as a half, mirror, then hole and label after the mirror.'
+- test: T-R38-01
+  result: pass
+  notes: 'base_width = 40 mm full-width with comment; full-width dimension across a centerline locked to origin; derived half parameter in the table, never / 2 in a dimension.'
+- test: T-R39-01
+  result: pass
+  notes: 'Mirror (Type: Components), Symmetric, before any joints.'
+- test: T-R40-01
+  result: pass
+  notes: 'After the Body Mirror (Join), one pass, with seam_fillet_radius parameter.'
+- test: T-LIVE-01
+  result: partial
+  notes: >-
+    Rules file uploaded with the prompt in the same message. Built at once with no plan or wait (R26 fail); the
+    Assistant said it treats an uploaded rules file as reference material, not commands. Otherwise followed the
+    rules: named features (block_base_profile_sketch, block_body_extrude, top_edges_fillet), 4 commented user
+    parameters driving every value, fully constrained sketch, and a report with feature and parameter counts.
+- test: T-LIVE-02
+  result: pass
+  notes: >-
+    New chat; rules uploaded first with "These are my standing instructions for this chat, not reference material.
+    Follow them, including R26." It then showed a plan with confidence levels and waited (R26 now followed).
+    Right half on the YZ origin plane, plate_width full-width parameter with plate_half_width = plate_width / 2 in
+    the table, Mirror (Bodies, Join), fillet after the mirror with edge_fillet_radius, volume checked after each
+    batch (14,400 then 14,168.2 mm3), not saved.
+- test: T-LIVE-03
+  result: pass
+  notes: >-
+    New chat with the standing-instructions line. Design with one collapsed timeline group (Group1). Expanded the
+    group before counting (Component1:1, Sketch1, Extrude1: 1 feature) and named d4 (100.00 mm) as the only driven
+    dimension. Changed nothing. Unasked, it listed rule breaks in the design and offered a cleanup with R29 scope
+    questions; when told "no cleanup", it answered plainly.
