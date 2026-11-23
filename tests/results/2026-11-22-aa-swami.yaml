@@ -140,3 +140,10 @@ results:
     Right half on the YZ origin plane, plate_width full-width parameter with plate_half_width = plate_width / 2 in
     the table, Mirror (Bodies, Join), fillet after the mirror with edge_fillet_radius, volume checked after each
     batch (14,400 then 14,168.2 mm3), not saved.
+- test: T-LIVE-03
+  result: pass
+  notes: >-
+    New chat with the standing-instructions line. Design with one collapsed timeline group (Group1). Expanded the
+    group before counting (Component1:1, Sketch1, Extrude1: 1 feature) and named d4 (100.00 mm) as the only driven
+    dimension. Changed nothing. Unasked, it listed rule breaks in the design and offered a cleanup with R29 scope
+    questions; when told "no cleanup", it answered plainly.
