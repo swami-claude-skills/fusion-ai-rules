@@ -1,0 +1,16 @@
+date: 2026-11-22
+ai: aa
+surface: Fusion (Commercial), Autodesk Assistant 1.188.43
+model: not shown
+ruleset_version: 2.0.0
+tester: swami
+results:
+- test: T-R01-01
+  result: pass
+  notes: >-
+    Named them handle_top_cut_extrude and handle_guard_join_combine, with the feature type in each name.
+    Also named the sketch and parameter, and noted the combine target (R02) unprompted.
+- test: T-R02-01
+  result: pass
+  notes: >-
+    Picks the guard first as the Combine target, because the first body picked keeps its name.
