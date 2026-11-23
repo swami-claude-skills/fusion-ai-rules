@@ -197,6 +197,7 @@ def results_matrix():
     return rows
 
 
+AA_STANDING = 'These are my standing instructions for this chat, not reference material. Follow them, including R26.'
 KIT_AI = {'aa': ('Autodesk Assistant', 'targets/aa-chat/fusion-rules-autodesk-assistant.txt', True),
           'gpt': ('ChatGPT', 'fusion-modeling-rules.md', False),
           'claude': ('Claude', 'fusion-modeling-rules.md', True),
@@ -211,8 +212,13 @@ def test_kit(ai):
     v = meta['version']
     s = f'# Test kit: {name}, rule set v{v}\n\n'
     s += (f'1. Start a new chat in {name} and load the rules: `{rules_file}` from '
-          f'{PAGES} (upload the file, or paste its text as the first message).\n'
-          '2. Ask each question below in the same chat, one at a time, exactly as written.\n'
+          f'{PAGES} (upload the file, or paste its text as the first message).'
+          + (f' With it, send only this line: "{AA_STANDING}" The Assistant treats an uploaded file as reference '
+             'material, not instructions, unless you say so; without this line it skips R26 (plan and wait).' if ai == 'aa' else '')
+          + '\n'
+          '2. Ask the questions below in the same chat, exactly as written: one at a time, or all in one message '
+          'that starts "Test questions. Do not build or change anything. Answer each in one or two sentences, '
+          'labelled with its test ID."\n'
           '3. Compare each answer with "Pass if". Mark pass, fail or partial; n/a when it does not apply.\n'
           '4. Report the run with the "Test result" form on GitHub '
           f'({REPO}/issues/new?template=test-result.yml), pasting the results block at the end.\n\n')
@@ -381,7 +387,7 @@ def page_data():
     for t in tgt['targets']:
         p = {'id': t['id'], 'ai': t['ai'], 'label': t['label'], 'fmt': t['format'], 'why': t['include_why'],
              'ex': t['include_examples'], 'file': t['file'], 'limit': t.get('limit'), 'limitNote': t.get('limit_note'),
-             'where': t.get('where')}
+             'where': t.get('where'), 'preamble': t.get('preamble')}
         for k in ('soft_label', 'hard_label', 'tip'):
             if k in t:
                 p[back.get(k, k)] = t[k]
@@ -491,6 +497,8 @@ def build(out):
             if fmt != t['format']:
                 label += ' (titles only, to fit)'
             txt = render(fmt, rs, label, t.get('include_why', True), t.get('include_examples', True), today=today)
+            if t.get('preamble') and fmt != 'json':
+                txt = to_ascii(t['preamble'].strip()) + '\n\n' + txt
             chosen = (fmt, sel, rs, txt)
             if not lim or len(txt) <= lim:
                 break

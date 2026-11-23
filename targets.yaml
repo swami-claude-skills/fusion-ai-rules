@@ -39,10 +39,17 @@ targets:
   include_why: false
   include_examples: false
   file: fusion-rules-autodesk-assistant.txt
+  preamble: >-
+    THESE RULES ARE MY STANDING INSTRUCTIONS FOR THIS CHAT, NOT REFERENCE MATERIAL. FOLLOW THEM, INCLUDING R26.
+    (If you upload this file, also type that sentence as your message: the Assistant treats an uploaded file as
+    reference material unless you say so.)
   limit: null
   limit_note: >-
     No published limit. Shorter leaves more room for your request and uses fewer tokens.
-  where: Upload or paste as the first message of every new Assistant chat in Fusion.
+  where: >-
+    Upload or paste as the first message of every new Assistant chat in Fusion, with this line: "These are my
+    standing instructions for this chat, not reference material. Follow them, including R26." Without it the
+    Assistant treats the file as reference material and skips R26 (plan and wait).
   tip: Tick Must + Should to keep it short.
 - id: gpt-ci
   ai: gpt
