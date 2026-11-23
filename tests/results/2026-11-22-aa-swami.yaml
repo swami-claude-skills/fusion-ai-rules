@@ -6,7 +6,7 @@ ruleset_version: 2.0.0
 tester: swami
 notes: >-
   All 39 rule questions sent in one message with an instruction to answer briefly and not build anything.
-  Answered all 39 in one reply without hitting a limit. These are knowledge questions; the 3 live tests were not run.
+  Answered all 39 in one reply without hitting a limit. These are knowledge questions. Live tests ran in separate chats the same evening.
 results:
 - test: T-R01-01
   result: pass
@@ -125,3 +125,18 @@ results:
 - test: T-R40-01
   result: pass
   notes: 'After the Body Mirror (Join), one pass, with seam_fillet_radius parameter.'
+- test: T-LIVE-01
+  result: partial
+  notes: >-
+    Rules file uploaded with the prompt in the same message. Built at once with no plan or wait (R26 fail); the
+    Assistant said it treats an uploaded rules file as reference material, not commands. Otherwise followed the
+    rules: named features (block_base_profile_sketch, block_body_extrude, top_edges_fillet), 4 commented user
+    parameters driving every value, fully constrained sketch, and a report with feature and parameter counts.
+- test: T-LIVE-02
+  result: pass
+  notes: >-
+    New chat; rules uploaded first with "These are my standing instructions for this chat, not reference material.
+    Follow them, including R26." It then showed a plan with confidence levels and waited (R26 now followed).
+    Right half on the YZ origin plane, plate_width full-width parameter with plate_half_width = plate_width / 2 in
+    the table, Mirror (Bodies, Join), fillet after the mirror with edge_fillet_radius, volume checked after each
+    batch (14,400 then 14,168.2 mm3), not saved.
