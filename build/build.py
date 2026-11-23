@@ -121,6 +121,9 @@ AI_KEYS = ['aa', 'gpt', 'claude', 'gem']
 RESULT_VALUES = ('pass', 'fail', 'partial', 'n/a')
 tests = load_dir('tests/prompts')
 runs = load_dir('tests/results')
+for _r in runs:  # YAML reads an unquoted date as a date object; keep it a string for JSON
+    if 'date' in _r:
+        _r['date'] = str(_r['date'])
 active_ids = {r['id'] for r in rules if r.get('status') != 'Deprecated'}
 tids = [t.get('id') for t in tests]
 for dup in {i for i in tids if tids.count(i) > 1}:
