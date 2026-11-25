@@ -181,12 +181,17 @@
   .tool-btn:hover{border-color:var(--cyan);color:var(--cyan)}
   /* ---- toolbar patch css ---- */
   .tool-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-  .tool-btn .ico{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tool-btn .ico,.sec-all .ico{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .tool-btn .ico circle{fill:currentColor;stroke:none}
-  #toggleAll .tl{min-width:12ch} #tocToggle .tl{min-width:8ch}  /* label swap never shifts the toolbar */
-  #toggleAll .i-col{display:none} #toggleAll.all-open .i-col{display:block} #toggleAll.all-open .i-exp{display:none}
+  .tool-btn .ico.tri{width:16px;height:16px;fill:currentColor;stroke:none}
+  #tocToggle .tl{min-width:8ch}
   #tocToggle[aria-pressed="false"]{color:var(--cyan);border-color:rgba(0,229,255,.45)}
   body.toc-hidden .toc-bar{display:none}
+  .sec-all{display:inline-flex;align-items:center;justify-content:center;width:28px;height:26px;flex:none;padding:0;
+    background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-mute);cursor:pointer}
+  .sec-all:hover,.sec-all:focus-visible{border-color:var(--cyan);color:var(--cyan)}
+  .sec-all .i-col{display:none} .sec-all.all-open .i-col{display:block} .sec-all.all-open .i-exp{display:none}
+  .sec-all.all-open{color:var(--cyan);border-color:rgba(0,229,255,.35)}
   /* ---- end toolbar patch css ---- */
 
   .toc-bar{
@@ -885,6 +890,9 @@
   .mm-node.linked{cursor:pointer}
   .mm-node.linked:hover rect.box{filter:brightness(1.35)}
   /* MIND-MAP-CSS:END */
+
+  /* ---- house-style tooltips (replace every system title tooltip) ---- */
+  .vtip{max-width:300px;font-size:12.5px;line-height:1.45;color:var(--text);padding:7px 10px;z-index:95}
   /* VISUALS:CSS:BEGIN */
   figure.viz{margin:6px 0 4px}
   .viz-scroll{overflow-x:auto}
@@ -955,9 +963,6 @@
   .md-view th{font-family:var(--mono);font-size:12px;color:var(--cyan);background:var(--panel)}
   .md-view .gflash{outline:2px solid var(--green);outline-offset:2px}
   /* SRCVIEW:CSS:END */
-
-  /* ---- house-style tooltips (replace every system title tooltip) ---- */
-  .vtip{max-width:300px;font-size:12.5px;line-height:1.45;color:var(--text);padding:7px 10px;z-index:95}
 </style>
 </head>
 <body>
@@ -1206,7 +1211,9 @@
   <div class="toc-bar" id="tocBar"></div>
   <div class="toolbar">
     <button class="tool-btn" id="tocToggle" aria-pressed="true" title="Hide the table of contents to see more of the page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/></svg><span class="tl">hide TOC</span></button>
-    <button class="tool-btn" id="toggleAll" title="Open every section and item"><svg class="ico i-exp" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9l5-5 5 5M7 15l5 5 5-5"/></svg><svg class="ico i-col" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l5 5 5-5M7 20l5-5 5 5"/></svg><span class="tl">expand all</span></button>
+    <button class="tool-btn" id="toTop" title="Go to the top of the page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14M12 21V9M7 14l5-5 5 5"/></svg><span class="tl">top</span></button>
+    <button class="tool-btn" id="expandAll" title="Open every section and every part in it"><svg class="ico tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L22.5 20.5H1.5Z"/></svg><span class="tl">expand all</span></button>
+    <button class="tool-btn" id="collapseAll" title="Close every section and every part in it"><svg class="ico tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 3.5H22.5L12 21Z"/></svg><span class="tl">collapse all</span></button>
     <div class="search-wrap">
       <div class="search-field">
         <input id="search" type="text" placeholder="search dashboard…" autocomplete="off">
@@ -2515,25 +2522,53 @@ window.addEventListener('scroll', () => {   // hide only on a real page move, no
 sections.forEach(sec => {
   sec.querySelector('.sec-head').addEventListener('click', () => { sec.classList.toggle('open'); fitVisibleTables(); syncFloatingHeaders(); });
 });
-/* ---- one expand/collapse toggle (label + icon show the next action) ---- */
-const toggleAllBtn = document.getElementById('toggleAll');
-function syncToggleAll(){
-  const anyOpen = [...sections].some(s => s.classList.contains('open'));   /* collapse all while anything is open */
-  toggleAllBtn.classList.toggle('all-open', anyOpen);
-  toggleAllBtn.querySelector('.tl').textContent = anyOpen ? 'collapse all' : 'expand all';
-  toggleAllBtn.title = anyOpen ? 'Close every section and item' : 'Open every section and item';
-}
-toggleAllBtn.addEventListener('click', () => {
-  if(toggleAllBtn.classList.contains('all-open')){
-    sections.forEach(s=>s.classList.remove('open')); document.querySelectorAll('.citem').forEach(c=>c.classList.remove('open')); syncFloatingHeaders();
-  } else {
-    sections.forEach(s=>s.classList.add('open')); document.querySelectorAll('.citem').forEach(c=>c.classList.add('open')); fitVisibleTables(); syncFloatingHeaders();
+/* ---- toolbar patch v3 js ---- */
+/* top of page */
+document.getElementById('toTop').addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+/* expand all / collapse all: two buttons */
+document.getElementById('expandAll').addEventListener('click', () => {
+  sections.forEach(s => s.classList.add('open')); document.querySelectorAll('.citem').forEach(c => c.classList.add('open'));
+  fitVisibleTables(); syncFloatingHeaders(); });
+document.getElementById('collapseAll').addEventListener('click', () => {
+  sections.forEach(s => s.classList.remove('open')); document.querySelectorAll('.citem').forEach(c => c.classList.remove('open'));
+  syncFloatingHeaders(); });
+/* per-section expand/collapse: a small button in each section header (and Alt/Option-click on the header) */
+(function(){
+  const ICO = d => '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>';
+  const EXP = ICO('<path d="M7 9l5-5 5 5M7 15l5 5 5-5"/>').replace('class="ico"', 'class="ico i-exp"');
+  const COL = ICO('<path d="M7 4l5 5 5-5M7 20l5-5 5 5"/>').replace('class="ico"', 'class="ico i-col"');
+  const parts = sec => [...sec.querySelectorAll('.citem')];
+  const allOpen = sec => sec.classList.contains('open') && parts(sec).every(c => c.classList.contains('open'));
+  function toggle(sec){
+    if(allOpen(sec)){ parts(sec).forEach(c => c.classList.remove('open')); }
+    else { sec.classList.add('open'); parts(sec).forEach(c => c.classList.add('open')); fitVisibleTables(); }
+    syncFloatingHeaders(); syncAll();
   }
-  syncToggleAll();
-});
-/* follow the sections' open state, whatever opened or closed them */
-new MutationObserver(syncToggleAll).observe(document.getElementById('content') || document.body, {subtree:true, attributes:true, attributeFilter:['class']});
-syncToggleAll();
+  function sync(b){
+    const o = allOpen(b.closest('.section'));
+    if(b.classList.contains('all-open') === o && b.dataset.synced) return;
+    b.dataset.synced = '1'; b.classList.toggle('all-open', o);
+    b.setAttribute('aria-label', o ? 'Collapse every part of this section' : 'Expand this section and every part in it');
+    b.title = o ? 'Close every part of this section (or Alt/Option-click the header)' : 'Open this section and every part in it (or Alt/Option-click the header)';
+  }
+  const btns = [];
+  sections.forEach(sec => {
+    const head = sec.querySelector('.sec-head'); if(!head || !parts(sec).length) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'sec-all'; b.innerHTML = EXP + COL;
+    b.addEventListener('click', e => { e.stopPropagation(); toggle(sec); });
+    head.insertBefore(b, head.querySelector('.chevron')); btns.push(b);
+  });
+  function syncAll(){ btns.forEach(sync); }
+  document.addEventListener('click', e => {
+    if(!e.altKey) return;
+    const head = e.target.closest && e.target.closest('.section .sec-head'); if(!head || e.target.closest('.sec-all')) return;
+    const sec = head.closest('.section'); if(!parts(sec).length) return;
+    e.preventDefault(); e.stopPropagation(); toggle(sec);
+  }, true);
+  new MutationObserver(syncAll).observe(document.getElementById('content') || document.body, {subtree:true, attributes:true, attributeFilter:['class']});
+  syncAll();
+})();
+/* ---- end toolbar patch v3 js ---- */
 
 /* ---- runtime-measured sticky offset for data-target navigation ---- */
 const stack = document.getElementById('stickyStack');
@@ -2551,7 +2586,7 @@ updateStackH();
 window.addEventListener('resize', updateStackH);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(updateStackH);
 
-/* ---- show/hide TOC (toolbar button left of the expand/collapse toggle); remembered per viewer ---- */
+/* ---- show/hide TOC (toolbar button left of expand all / collapse all); remembered per viewer ---- */
 (function(){
   const btn = document.getElementById('tocToggle'); if(!btn) return;
   const lab = btn.querySelector('.tl');
@@ -2569,6 +2604,7 @@ if(document.fonts && document.fonts.ready) document.fonts.ready.then(updateStack
   let saved = null; try{ saved = localStorage.getItem('vibe-toc-hidden'); }catch(e){}
   if(saved === '1') apply(true, false);
 })();
+
 
 /* ---- floating table headers (page-level sticky below the section + item headers) ----
    For each .table-wrap, build a fixed-position clone of the header row. While the
@@ -3864,6 +3900,54 @@ tips();
 })();
 </script>
 <!-- MIND-MAP-JS:END -->
+<script>
+/* ---- house-style tooltips: move every title attribute to data-vtip and show it in the .gj-tip style ---- */
+(function(){
+  const tip = document.createElement('div');
+  tip.className = 'gj-tip vtip'; tip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tip);
+  let cur = null;
+  function place(el){
+    const r = el.getBoundingClientRect();
+    tip.style.left = '0px'; tip.style.top = '0px';
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 8));
+    let y = r.bottom + 8; if(y + h > innerHeight - 8) y = Math.max(8, r.top - h - 8);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function show(el){ cur = el; tip.textContent = el.dataset.vtip; place(el); tip.classList.add('show'); }
+  function hide(){ cur = null; tip.classList.remove('show'); }
+  function conv(el){
+    if(!el || el.nodeType !== 1) return;
+    if(el.tagName.toLowerCase() === 'title' && el.closest('svg')){          /* inline <svg><title> */
+      const host = el.parentNode; const t = el.textContent.trim(); el.remove();
+      if(host && t){ host.dataset.vtip = t; }
+      return;
+    }
+    if(!el.hasAttribute('title')) return;
+    const t = el.getAttribute('title'); el.removeAttribute('title');
+    if(!t.trim()) return;
+    el.dataset.vtip = t;
+    if(!el.hasAttribute('aria-label') && !el.textContent.trim()) el.setAttribute('aria-label', t);
+    if(el === cur){ tip.textContent = t; place(el); }
+  }
+  document.querySelectorAll('[title], svg title').forEach(conv);
+  new MutationObserver(ms => {
+    for(const m of ms){
+      if(m.type === 'attributes'){ conv(m.target); continue; }
+      m.addedNodes.forEach(n => { if(n.nodeType !== 1) return; conv(n); n.querySelectorAll && n.querySelectorAll('[title], svg title').forEach(conv); });
+    }
+  }).observe(document.documentElement, {subtree:true, childList:true, attributes:true, attributeFilter:['title']});
+  document.addEventListener('pointerover', e => {
+    const el = e.target.closest && e.target.closest('[data-vtip]');
+    if(el){ if(el !== cur) show(el); } else if(cur) hide();
+  }, true);
+  document.addEventListener('focusin', e => { const el = e.target.closest && e.target.closest('[data-vtip]'); if(el && el.matches(':focus-visible')) show(el); });
+  document.addEventListener('focusout', hide);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') hide(); });
+  addEventListener('scroll', () => { if(cur) hide(); }, {passive:true});
+})();
+</script>
 <script>/* VISUALS:JS:BEGIN (visuals_patch.py) */
 function openDetailsFor(el){ let d = el && el.closest && el.closest('details'); while(d){ d.open = true; d = d.parentElement && d.parentElement.closest('details'); } }
 document.addEventListener('click', e => {
@@ -4043,53 +4127,6 @@ if(typeof jumpToEl === 'function'){ const _j = jumpToEl; jumpToEl = function(el)
     };
   }
 })();
-/* SRCVIEW:JS:END */
-/* ---- house-style tooltips: move every title attribute to data-vtip and show it in the .gj-tip style ---- */
-(function(){
-  const tip = document.createElement('div');
-  tip.className = 'gj-tip vtip'; tip.setAttribute('role', 'tooltip');
-  document.body.appendChild(tip);
-  let cur = null;
-  function place(el){
-    const r = el.getBoundingClientRect();
-    tip.style.left = '0px'; tip.style.top = '0px';
-    const w = tip.offsetWidth, h = tip.offsetHeight;
-    let x = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 8));
-    let y = r.bottom + 8; if(y + h > innerHeight - 8) y = Math.max(8, r.top - h - 8);
-    tip.style.left = x + 'px'; tip.style.top = y + 'px';
-  }
-  function show(el){ cur = el; tip.textContent = el.dataset.vtip; place(el); tip.classList.add('show'); }
-  function hide(){ cur = null; tip.classList.remove('show'); }
-  function conv(el){
-    if(!el || el.nodeType !== 1) return;
-    if(el.tagName.toLowerCase() === 'title' && el.closest('svg')){          /* inline <svg><title> */
-      const host = el.parentNode; const t = el.textContent.trim(); el.remove();
-      if(host && t){ host.dataset.vtip = t; }
-      return;
-    }
-    if(!el.hasAttribute('title')) return;
-    const t = el.getAttribute('title'); el.removeAttribute('title');
-    if(!t.trim()) return;
-    el.dataset.vtip = t;
-    if(!el.hasAttribute('aria-label') && !el.textContent.trim()) el.setAttribute('aria-label', t);
-    if(el === cur){ tip.textContent = t; place(el); }
-  }
-  document.querySelectorAll('[title], svg title').forEach(conv);
-  new MutationObserver(ms => {
-    for(const m of ms){
-      if(m.type === 'attributes'){ conv(m.target); continue; }
-      m.addedNodes.forEach(n => { if(n.nodeType !== 1) return; conv(n); n.querySelectorAll && n.querySelectorAll('[title], svg title').forEach(conv); });
-    }
-  }).observe(document.documentElement, {subtree:true, childList:true, attributes:true, attributeFilter:['title']});
-  document.addEventListener('pointerover', e => {
-    const el = e.target.closest && e.target.closest('[data-vtip]');
-    if(el){ if(el !== cur) show(el); } else if(cur) hide();
-  }, true);
-  document.addEventListener('focusin', e => { const el = e.target.closest && e.target.closest('[data-vtip]'); if(el && el.matches(':focus-visible')) show(el); });
-  document.addEventListener('focusout', hide);
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') hide(); });
-  addEventListener('scroll', () => { if(cur) hide(); }, {passive:true});
-})();
-</script>
+/* SRCVIEW:JS:END */</script>
 </body>
 </html>

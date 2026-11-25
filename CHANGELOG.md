@@ -4,7 +4,7 @@ All notable changes to the rule set. Versions follow `ruleset.yaml`.
 
 ## Site - 2026-11-25
 
-Not a rule change (the rule set stays at 2.0.0). The Rule Set page template (`site/ruleset.html`) gets the current vibe-dashboard page patches, so the GitHub Pages site and the Claude copy keep them on every rebuild: a **hide TOC** button and one **expand all / collapse all** toggle that shows *collapse all* whenever any section is open, house-style tooltips instead of the browser's own, the bright silver colour for the Glossary and References badges, and the plumbing for diagram tooltips and the Source Document view.
+Not a rule change (the rule set stays at 2.0.0). The Rule Set page template (`site/ruleset.html`) gets the current vibe-dashboard page patches, so the GitHub Pages site and the Claude copy keep them on every rebuild: a **hide TOC** button, a **back to top** button, separate **expand all** and **collapse all** buttons, an expand/collapse button on each section header that has collapsible parts, house-style tooltips instead of the browser's own, the bright silver colour for the Glossary and References badges, and the plumbing for diagram tooltips and the Source Document view.
 
 ## Tests - 2026-11-22
 
