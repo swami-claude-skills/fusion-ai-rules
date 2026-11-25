@@ -39,7 +39,7 @@
        No generic placeholder names (cat-a, cat-b, …) in a finished dashboard. */
     /* the two vars below back the template's example sections; rename/replace them */
     --cat-overview:#38dafa;   /* palette 1 (cyan)  */
-    --cat-source:#38fa79;     /* palette 2 (green) */
+    --cat-source:#f2f2f2;     /* palette 2 (green) */
     --cat-rules:#dafa38;
     --cat-export:#fa9938;
     --cat-howto:#fa3899;
@@ -179,6 +179,20 @@
     cursor:pointer;
   }
   .tool-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+  /* ---- toolbar patch css ---- */
+  .tool-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .tool-btn .ico,.sec-all .ico{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tool-btn .ico circle{fill:currentColor;stroke:none}
+  .tool-btn .ico.tri{width:16px;height:16px;fill:currentColor;stroke:none}
+  #tocToggle .tl{min-width:8ch}
+  #tocToggle[aria-pressed="false"]{color:var(--cyan);border-color:rgba(0,229,255,.45)}
+  body.toc-hidden .toc-bar{display:none}
+  .sec-all{display:inline-flex;align-items:center;justify-content:center;width:28px;height:26px;flex:none;padding:0;
+    background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-mute);cursor:pointer}
+  .sec-all:hover,.sec-all:focus-visible{border-color:var(--cyan);color:var(--cyan)}
+  .sec-all .i-col{display:none} .sec-all.all-open .i-col{display:block} .sec-all.all-open .i-exp{display:none}
+  .sec-all.all-open{color:var(--cyan);border-color:rgba(0,229,255,.35)}
+  /* ---- end toolbar patch css ---- */
 
   .toc-bar{
     display:flex;
@@ -285,7 +299,6 @@
   /* per-category tint on the tooltip badge, mirroring the section badges.
      Add one line per category you define (same hue as its --cat-NAME). */
   .toc-tip.tc-overview .tip-badge{color:var(--cat-overview);background:rgba(56,218,250,.10)}
-  .toc-tip.tc-source .tip-badge{color:var(--cat-source);background:rgba(56,250,121,.10)}
 
   /* ---------- Content ---------- */
   /* Full-width layout: every band (header, TOC, toolbar, sections, footer) spans the page.
@@ -375,10 +388,6 @@
   .cat-overview{border-left:3px solid var(--cat-overview)}
   .toc-chip.tc-overview{border-left-color:var(--cat-overview)}
   .toc-chip.tc-overview:hover{color:var(--cat-overview)}
-  .cat-source .cat-badge{color:var(--cat-source);background:rgba(56,250,121,.10)}
-  .cat-source{border-left:3px solid var(--cat-source)}
-  .toc-chip.tc-source{border-left-color:var(--cat-source)}
-  .toc-chip.tc-source:hover{color:var(--cat-source)}
   .cat-rules .cat-badge{color:var(--cat-rules);background:rgba(218,250,56,.10)}
   .cat-rules{border-left:3px solid var(--cat-rules)}
   .toc-chip.tc-rules{border-left-color:var(--cat-rules)}
@@ -881,6 +890,79 @@
   .mm-node.linked{cursor:pointer}
   .mm-node.linked:hover rect.box{filter:brightness(1.35)}
   /* MIND-MAP-CSS:END */
+
+  /* ---- house-style tooltips (replace every system title tooltip) ---- */
+  .vtip{max-width:300px;font-size:12.5px;line-height:1.45;color:var(--text);padding:7px 10px;z-index:95}
+  /* VISUALS:CSS:BEGIN */
+  figure.viz{margin:6px 0 4px}
+  .viz-scroll{overflow-x:auto}
+  .viz img{display:block;width:100%;min-width:720px;height:auto}
+  figure.viz figcaption{font-size:13px;color:var(--text-dim);margin:8px 2px 0;line-height:1.5}
+  .viz-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:10px 2px 0;font-size:12.5px;color:var(--text-dim)}
+  .viz-legend .lg-title{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-mute)}
+  .viz-legend .lg{display:inline-flex;align-items:center;gap:7px}
+  .viz-legend .lg-sw{width:13px;height:13px;border-radius:4px;border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 22%,transparent);flex:none}
+  .viz-legend .lg-line{width:26px;height:0;border-top:2px solid var(--c);flex:none}
+  .viz-legend .lg-dashed{border-top-style:dashed}
+  .tree-ctl{display:flex;gap:8px;margin:4px 0 10px}
+  .tree{font-family:var(--mono);font-size:12.5px;line-height:1.55}
+  .tree .tkids{margin-left:6px;padding-left:12px;border-left:1px dashed #3a3a46}
+  .tree summary{cursor:pointer;list-style:none;padding:3px 0;color:var(--text)}
+  .tree summary::-webkit-details-marker{display:none}
+  .tree summary::before{content:'▸';color:var(--cyan);display:inline-block;width:16px}
+  .tree details[open]>summary::before{content:'▾'}
+  .tree summary:hover .tlab{color:var(--cyan)}
+  .sec-body .tree ul.tleaves{margin:0;padding:0}
+  .sec-body .tree li.tleaf{margin:0;padding:3px 0 3px 16px;color:var(--text)}
+  .sec-body .tree li.tleaf::before{left:2px;top:.95em}
+  .tree .tnote{color:var(--text-mute);margin-left:10px;font-size:11.5px}
+  .tree .tcount{color:var(--text-mute);margin-left:8px;font-size:11px}
+  .tree .tcount::before{content:'{'} .tree .tcount::after{content:'}'}
+  .viz-hotwrap{position:relative;width:100%;min-width:720px}
+  .viz-hot{position:absolute;inset:0;width:100%;height:100%;opacity:0;pointer-events:none}
+  .viz-hot .vh-box{pointer-events:all;cursor:help}
+  .viz-hot .vh-arrow{pointer-events:stroke;cursor:help}
+  /* VISUALS:CSS:END */
+  /* ---- source category colour ---- */
+  .cat-source .cat-badge{color:var(--cat-source);background:rgba(242,242,242,.12)}
+  .cat-source{border-left:3px solid var(--cat-source)}
+  .toc-chip.tc-source{border-left-color:var(--cat-source)}
+  .toc-chip.tc-source:hover{color:var(--cat-source)}
+  .toc-tip.tc-source .tip-badge{color:var(--cat-source);background:rgba(242,242,242,.12)}
+  /* SRCVIEW:CSS:BEGIN */
+  .src-view{display:inline-flex;margin:4px 0 10px;border:1px solid var(--border);border-radius:7px;overflow:hidden}
+  .src-view button{font-family:var(--mono);font-size:11.5px;padding:5px 12px;background:var(--panel);color:var(--text-dim);border:0;cursor:pointer}
+  .src-view button + button{border-left:1px solid var(--border)}
+  .src-view button:hover{color:var(--text)}
+  .src-view button.on{background:rgba(0,229,255,.12);color:var(--cyan)}
+  .md-view{font-family:var(--sans);font-size:14px;line-height:1.65;color:var(--text);background:var(--panel-2);
+    border:1px solid var(--border);border-radius:8px;padding:6px 20px 14px;max-height:520px;overflow:auto;overflow-wrap:anywhere}
+  .md-view::-webkit-scrollbar{width:8px;height:8px}
+  .md-view::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+  .md-view h1,.md-view h2,.md-view h3,.md-view h4,.md-view h5,.md-view h6{font-family:var(--mono);color:var(--cyan);line-height:1.35;margin:18px 0 8px}
+  .md-view h1{font-size:19px}.md-view h2{font-size:16.5px;border-bottom:1px solid var(--border);padding-bottom:4px}
+  .md-view h3{font-size:14.5px}.md-view h4,.md-view h5,.md-view h6{font-size:13px;color:var(--text)}
+  .md-view p{margin:8px 0}
+  .md-view ul{margin:6px 0 6px 4px}
+  .md-view ol{margin:6px 0;padding-left:26px;list-style:decimal}
+  .md-view li{margin:4px 0}
+  .md-view ol>li{padding-left:4px}
+  .md-view ol>li::before{content:none}
+  .md-view ol>li::marker{color:var(--cyan);font-family:var(--mono);font-size:12px}
+  .md-view code{font-family:var(--mono);font-size:12.5px;background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:0 4px}
+  .md-view pre.md-code{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--panel);border:1px solid var(--border);
+    border-radius:6px;padding:12px 14px;margin:10px 0;white-space:pre;overflow-x:auto;max-height:none;color:var(--text-dim)}
+  .md-view pre.md-code code{background:none;border:0;padding:0}
+  .md-view pre.md-fm{border-color:rgba(242,242,242,.25);white-space:pre-wrap}
+  .md-view blockquote{margin:8px 0;padding:2px 14px;border-left:3px solid var(--cyan);color:var(--text-dim)}
+  .md-view hr{border:0;border-top:1px solid var(--border);margin:16px 0}
+  .md-view a{color:var(--cyan)}
+  .md-view .md-tbl{overflow-x:auto;margin:10px 0}
+  .md-view table{border-collapse:collapse;font-size:13px}
+  .md-view th,.md-view td{border:1px solid var(--border);padding:5px 9px;text-align:left;vertical-align:top}
+  .md-view th{font-family:var(--mono);font-size:12px;color:var(--cyan);background:var(--panel)}
+  .md-view .gflash{outline:2px solid var(--green);outline-offset:2px}
+  /* SRCVIEW:CSS:END */
 </style>
 </head>
 <body>
@@ -1128,8 +1210,10 @@
 <div class="sticky-stack" id="stickyStack">
   <div class="toc-bar" id="tocBar"></div>
   <div class="toolbar">
-    <button class="tool-btn" id="expandAll">expand all</button>
-    <button class="tool-btn" id="collapseAll">collapse all</button>
+    <button class="tool-btn" id="tocToggle" aria-pressed="true" title="Hide the table of contents to see more of the page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3"/><circle cx="4.5" cy="12" r="1.3"/><circle cx="4.5" cy="18" r="1.3"/></svg><span class="tl">hide TOC</span></button>
+    <button class="tool-btn" id="toTop" title="Go to the top of the page"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14M12 21V9M7 14l5-5 5 5"/></svg><span class="tl">top</span></button>
+    <button class="tool-btn" id="expandAll" title="Open every section and every part in it"><svg class="ico tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L22.5 20.5H1.5Z"/></svg><span class="tl">expand all</span></button>
+    <button class="tool-btn" id="collapseAll" title="Close every section and every part in it"><svg class="ico tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 3.5H22.5L12 21Z"/></svg><span class="tl">collapse all</span></button>
     <div class="search-wrap">
       <div class="search-field">
         <input id="search" type="text" placeholder="search dashboard…" autocomplete="off">
@@ -2212,7 +2296,7 @@ function linkGlossary(){
   if(!rows.length) return;
   const EXCLUDE = new Set(['Dashboard Summary','Glossary','References','Source Document (Verbatim)','Search','Mind Map']);
   const SKIPTAG = new Set(['A','BUTTON','PRE','SCRIPT','STYLE','MARK','TH']);
-  const SKIPCLS = ['secref','secnum','cat-pill','cat-badge','lbl','gterm','sec-head','citem-head','gloss-jump','tid'];
+  const SKIPCLS = ['secref','secnum','cat-pill','cat-badge','lbl','gterm','sec-head','citem-head','gloss-jump','tid','tree-sum','tree-ctl','viz'];
   const alts = [], codeMap = {};
   rows.forEach(r => {
     const id = r.dataset.gterm, re = (r.dataset.match || '').trim();
@@ -2291,7 +2375,7 @@ linkGlossary();
 /* ---- wrap each derived body item in a collapsible shell (all start collapsed) ----
    The [TAG] labels share one width per section (widest tag) so descriptions
    left-align. Reuses the same subs as the TOC, so headers match the tooltip. */
-const TAG_CH = {callout:'CALLOUT', resource:'RESOURCE', table:'TABLE', list:'LIST', search:'SEARCH', filters:'FILTERS', rules:'RULES', editor:'EDITOR', target:'TARGET', options:'OPTIONS', preview:'PREVIEW'};
+const TAG_CH = {callout:'CALLOUT', resource:'RESOURCE', table:'TABLE', list:'LIST', search:'SEARCH', filters:'FILTERS', rules:'RULES', editor:'EDITOR', target:'TARGET', options:'OPTIONS', preview:'PREVIEW', diagram:'DIAGRAM', tree:'TREE'};
 tocData.forEach(d => {
   if(!d.subs.length) return;
   // widest tag in this section -> column width in ch, so tags left-justify together
@@ -2438,8 +2522,53 @@ window.addEventListener('scroll', () => {   // hide only on a real page move, no
 sections.forEach(sec => {
   sec.querySelector('.sec-head').addEventListener('click', () => { sec.classList.toggle('open'); fitVisibleTables(); syncFloatingHeaders(); });
 });
-document.getElementById('expandAll').addEventListener('click', () => { sections.forEach(s=>s.classList.add('open')); document.querySelectorAll('.citem').forEach(c=>c.classList.add('open')); fitVisibleTables(); syncFloatingHeaders(); });
-document.getElementById('collapseAll').addEventListener('click', () => { sections.forEach(s=>s.classList.remove('open')); document.querySelectorAll('.citem').forEach(c=>c.classList.remove('open')); syncFloatingHeaders(); });
+/* ---- toolbar patch v3 js ---- */
+/* top of page */
+document.getElementById('toTop').addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+/* expand all / collapse all: two buttons */
+document.getElementById('expandAll').addEventListener('click', () => {
+  sections.forEach(s => s.classList.add('open')); document.querySelectorAll('.citem').forEach(c => c.classList.add('open'));
+  fitVisibleTables(); syncFloatingHeaders(); });
+document.getElementById('collapseAll').addEventListener('click', () => {
+  sections.forEach(s => s.classList.remove('open')); document.querySelectorAll('.citem').forEach(c => c.classList.remove('open'));
+  syncFloatingHeaders(); });
+/* per-section expand/collapse: a small button in each section header (and Alt/Option-click on the header) */
+(function(){
+  const ICO = d => '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>';
+  const EXP = ICO('<path d="M7 9l5-5 5 5M7 15l5 5 5-5"/>').replace('class="ico"', 'class="ico i-exp"');
+  const COL = ICO('<path d="M7 4l5 5 5-5M7 20l5-5 5 5"/>').replace('class="ico"', 'class="ico i-col"');
+  const parts = sec => [...sec.querySelectorAll('.citem')];
+  const allOpen = sec => sec.classList.contains('open') && parts(sec).every(c => c.classList.contains('open'));
+  function toggle(sec){
+    if(allOpen(sec)){ parts(sec).forEach(c => c.classList.remove('open')); }
+    else { sec.classList.add('open'); parts(sec).forEach(c => c.classList.add('open')); fitVisibleTables(); }
+    syncFloatingHeaders(); syncAll();
+  }
+  function sync(b){
+    const o = allOpen(b.closest('.section'));
+    if(b.classList.contains('all-open') === o && b.dataset.synced) return;
+    b.dataset.synced = '1'; b.classList.toggle('all-open', o);
+    b.setAttribute('aria-label', o ? 'Collapse every part of this section' : 'Expand this section and every part in it');
+    b.title = o ? 'Close every part of this section (or Alt/Option-click the header)' : 'Open this section and every part in it (or Alt/Option-click the header)';
+  }
+  const btns = [];
+  sections.forEach(sec => {
+    const head = sec.querySelector('.sec-head'); if(!head || !parts(sec).length) return;
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'sec-all'; b.innerHTML = EXP + COL;
+    b.addEventListener('click', e => { e.stopPropagation(); toggle(sec); });
+    head.insertBefore(b, head.querySelector('.chevron')); btns.push(b);
+  });
+  function syncAll(){ btns.forEach(sync); }
+  document.addEventListener('click', e => {
+    if(!e.altKey) return;
+    const head = e.target.closest && e.target.closest('.section .sec-head'); if(!head || e.target.closest('.sec-all')) return;
+    const sec = head.closest('.section'); if(!parts(sec).length) return;
+    e.preventDefault(); e.stopPropagation(); toggle(sec);
+  }, true);
+  new MutationObserver(syncAll).observe(document.getElementById('content') || document.body, {subtree:true, attributes:true, attributeFilter:['class']});
+  syncAll();
+})();
+/* ---- end toolbar patch v3 js ---- */
 
 /* ---- runtime-measured sticky offset for data-target navigation ---- */
 const stack = document.getElementById('stickyStack');
@@ -2456,6 +2585,26 @@ function updateStackH(){
 updateStackH();
 window.addEventListener('resize', updateStackH);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(updateStackH);
+
+/* ---- show/hide TOC (toolbar button left of expand all / collapse all); remembered per viewer ---- */
+(function(){
+  const btn = document.getElementById('tocToggle'); if(!btn) return;
+  const lab = btn.querySelector('.tl');
+  function apply(hidden, save){
+    document.body.classList.toggle('toc-hidden', hidden);
+    btn.setAttribute('aria-pressed', hidden ? 'false' : 'true');
+    lab.textContent = hidden ? 'show TOC' : 'hide TOC';
+    btn.title = hidden ? 'Show the table of contents' : 'Hide the table of contents to see more of the page';
+    const tip = document.querySelector('.toc-tip'); if(tip) tip.classList.remove('show');
+    updateStackH();
+    try{ syncFloatingHeaders(); }catch(e){}  /* not yet defined on first load */
+    if(save){ try{ localStorage.setItem('vibe-toc-hidden', hidden ? '1' : '0'); }catch(e){} }
+  }
+  btn.addEventListener('click', () => apply(!document.body.classList.contains('toc-hidden'), true));
+  let saved = null; try{ saved = localStorage.getItem('vibe-toc-hidden'); }catch(e){}
+  if(saved === '1') apply(true, false);
+})();
+
 
 /* ---- floating table headers (page-level sticky below the section + item headers) ----
    For each .table-wrap, build a fixed-position clone of the header row. While the
@@ -2869,7 +3018,7 @@ function checkCategoryColours(){
   const clashes = [];
   for(let i=0;i<cats.length;i++) for(let j=i+1;j<cats.length;j++){
     const a=cats[i], b=cats[j];
-    let hd = (a.hue<0||b.hue<0) ? 999 : Math.abs(a.hue-b.hue); if(hd>180) hd=360-hd;
+    let hd = 999; if(a.hue>=0 && b.hue>=0){ hd = Math.abs(a.hue-b.hue); if(hd>180) hd = 360-hd; }
     const rd = Math.hypot(a.rgb[0]-b.rgb[0], a.rgb[1]-b.rgb[1], a.rgb[2]-b.rgb[2]);
     if(hd < HUE_MIN || rd < RGB_MIN) clashes.push(a.name+' ↔ '+b.name+' (Δhue '+Math.round(hd)+'°, Δrgb '+Math.round(rd)+')');
   }
@@ -3033,7 +3182,7 @@ function walkText(node, term, acc){
   if(node.nodeType===3){
     const idx = node.nodeValue.toLowerCase().indexOf(term);
     if(idx>-1) acc.push(node);
-  } else if(node.nodeType===1 && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && node.tagName.toLowerCase()!=='svg' && node.id!=='xs'){
+  } else if(node.nodeType===1 && !node.hidden && node.tagName!=='SCRIPT' && node.tagName!=='STYLE' && node.tagName.toLowerCase()!=='svg' && node.id!=='xs'){
     [...node.childNodes].forEach(c=>walkText(c,term,acc));
   }
 }
@@ -3751,5 +3900,233 @@ tips();
 })();
 </script>
 <!-- MIND-MAP-JS:END -->
+<script>
+/* ---- house-style tooltips: move every title attribute to data-vtip and show it in the .gj-tip style ---- */
+(function(){
+  const tip = document.createElement('div');
+  tip.className = 'gj-tip vtip'; tip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tip);
+  let cur = null;
+  function place(el){
+    const r = el.getBoundingClientRect();
+    tip.style.left = '0px'; tip.style.top = '0px';
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 8));
+    let y = r.bottom + 8; if(y + h > innerHeight - 8) y = Math.max(8, r.top - h - 8);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function show(el){ cur = el; tip.textContent = el.dataset.vtip; place(el); tip.classList.add('show'); }
+  function hide(){ cur = null; tip.classList.remove('show'); }
+  function conv(el){
+    if(!el || el.nodeType !== 1) return;
+    if(el.tagName.toLowerCase() === 'title' && el.closest('svg')){          /* inline <svg><title> */
+      const host = el.parentNode; const t = el.textContent.trim(); el.remove();
+      if(host && t){ host.dataset.vtip = t; }
+      return;
+    }
+    if(!el.hasAttribute('title')) return;
+    const t = el.getAttribute('title'); el.removeAttribute('title');
+    if(!t.trim()) return;
+    el.dataset.vtip = t;
+    if(!el.hasAttribute('aria-label') && !el.textContent.trim()) el.setAttribute('aria-label', t);
+    if(el === cur){ tip.textContent = t; place(el); }
+  }
+  document.querySelectorAll('[title], svg title').forEach(conv);
+  new MutationObserver(ms => {
+    for(const m of ms){
+      if(m.type === 'attributes'){ conv(m.target); continue; }
+      m.addedNodes.forEach(n => { if(n.nodeType !== 1) return; conv(n); n.querySelectorAll && n.querySelectorAll('[title], svg title').forEach(conv); });
+    }
+  }).observe(document.documentElement, {subtree:true, childList:true, attributes:true, attributeFilter:['title']});
+  document.addEventListener('pointerover', e => {
+    const el = e.target.closest && e.target.closest('[data-vtip]');
+    if(el){ if(el !== cur) show(el); } else if(cur) hide();
+  }, true);
+  document.addEventListener('focusin', e => { const el = e.target.closest && e.target.closest('[data-vtip]'); if(el && el.matches(':focus-visible')) show(el); });
+  document.addEventListener('focusout', hide);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') hide(); });
+  addEventListener('scroll', () => { if(cur) hide(); }, {passive:true});
+})();
+</script>
+<script>/* VISUALS:JS:BEGIN (visuals_patch.py) */
+function openDetailsFor(el){ let d = el && el.closest && el.closest('details'); while(d){ d.open = true; d = d.parentElement && d.parentElement.closest('details'); } }
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.tree-btn'); if(!b) return;
+  e.stopPropagation();
+  const open = b.dataset.tree === 'open';
+  b.closest('.tree-box').querySelectorAll('.tree details').forEach(d => d.open = open);
+}, true);
+if(typeof jumpToEl === 'function'){ const _j = jumpToEl; jumpToEl = function(el){ openDetailsFor(el); return _j.apply(this, arguments); }; }
+(function(){ const c = document.getElementById('content'); if(!c) return;
+  new MutationObserver(ms => { for(const m of ms) for(const n of m.addedNodes) if(n.nodeName === 'MARK') openDetailsFor(n); })
+    .observe(c, {childList:true, subtree:true}); })();
+/* Diagram hover: each box and arrow in a diagram (figure.viz) shows what it means in that diagram's Key, in the house
+   tooltip style. The diagram's own SVG is laid over the image as an invisible copy (no text, so page passes and searches
+   ignore it); boxes match a Key swatch by stroke colour, arrows match the Key's solid or dashed line sample. */
+(function(){
+  const NS = 'http://www.w3.org/2000/svg';
+  const norm = c => { c = String(c || '').trim().toLowerCase(); if(/^#[0-9a-f]{3}$/.test(c)) c = '#' + [...c.slice(1)].map(x => x + x).join(''); return c; };
+  const sty = (el, k) => el.getAttribute(k) || ((el.getAttribute('style') || '').match(new RegExp('(?:^|;)\\s*' + k + '\\s*:\\s*([^;]+)')) || [])[1] || '';
+  const dashed = el => { for(let e = el; e && e.getAttribute; e = e.parentNode){ const d = sty(e, 'stroke-dasharray'); if(d && d !== 'none') return true; } return false; };
+  const stroke = el => { for(let e = el; e && e.getAttribute; e = e.parentNode){ const c = sty(e, 'stroke'); if(c && c !== 'none') return norm(c); } return ''; };
+  function hover(fig){
+    const img = fig.querySelector('img[src^="data:image/svg+xml"]'), lg = fig.querySelector('.viz-legend');
+    if(!img || !lg || fig.querySelector('.viz-hot')) return;
+    const sw = new Map(); let solidLab = '', dashLab = '';
+    lg.querySelectorAll('.lg').forEach(l => { const i = l.querySelector('i'); if(!i) return; const lab = l.textContent.replace(/\s+/g, ' ').trim();
+      if(i.classList.contains('lg-sw')) sw.set(norm(i.style.getPropertyValue('--c')), lab);
+      else if(i.classList.contains('lg-dashed')) dashLab = lab; else if(i.classList.contains('lg-line')) solidLab = lab; });
+    let src;
+    try{ const u = img.getAttribute('src'), d = u.slice(u.indexOf(',') + 1);
+      src = /;base64,/.test(u) ? new TextDecoder().decode(Uint8Array.from(atob(d), c => c.charCodeAt(0))) : decodeURIComponent(d); }catch(e){ return; }
+    const svg = new DOMParser().parseFromString(src, 'image/svg+xml').documentElement;
+    if(!svg || svg.nodeName.toLowerCase() !== 'svg') return;
+    const vb = (svg.getAttribute('viewBox') || '').trim().split(/[\s,]+/).map(Number);
+    const W = vb.length === 4 ? vb[2] : parseFloat(svg.getAttribute('width')), H = vb.length === 4 ? vb[3] : parseFloat(svg.getAttribute('height'));
+    if(!(W > 0 && H > 0)) return;
+    const texts = [...svg.querySelectorAll('text')].map(t => ({x: parseFloat(t.getAttribute('x')) || 0, y: parseFloat(t.getAttribute('y')) || 0, s: t.textContent.replace(/\s+/g, ' ').trim()}));
+    const inDefs = el => !!el.closest('defs,marker,clipPath,mask,pattern,symbol');
+    svg.querySelectorAll('rect,circle,ellipse').forEach(el => {
+      if(inDefs(el)) return;
+      const n = el.nodeName.toLowerCase(), f = k => parseFloat(el.getAttribute(k)) || 0;
+      const box = n === 'rect' ? [f('x'), f('y'), f('width'), f('height')]
+                : [f('cx') - (f('r') || f('rx')), f('cy') - (f('r') || f('ry')), 2 * (f('r') || f('rx')), 2 * (f('r') || f('ry'))];
+      if(box[2] >= W * 0.9 && box[3] >= H * 0.8) return;                       // the background panel
+      const lab = sw.get(stroke(el)); if(!lab) return;
+      const t = texts.find(t => t.s && t.x >= box[0] - 2 && t.x <= box[0] + box[2] + 2 && t.y >= box[1] && t.y <= box[1] + box[3] + 2);
+      const opt = dashed(el) && dashLab ? ' (' + dashLab + ')' : '';
+      el.setAttribute('class', 'vh-box'); el.setAttribute('data-vtip', (t ? t.s + ' · ' : '') + 'Key: ' + lab + opt);
+    });
+    svg.querySelectorAll('path,line,polyline').forEach(el => {
+      if(inDefs(el) || !stroke(el)) return;
+      if(el.nodeName.toLowerCase() === 'path' && !(sty(el, 'fill') === 'none' || el.getAttribute('marker-end') || el.getAttribute('marker-start'))) return;
+      const col = sw.get(stroke(el)), line = dashed(el) ? dashLab : solidLab;
+      const lab = [col, line].filter(Boolean).join(', '); if(!lab) return;
+      el.setAttribute('class', 'vh-arrow'); el.setAttribute('data-vtip', 'Arrow · Key: ' + lab);
+      el.setAttribute('stroke-width', '14'); el.removeAttribute('marker-end'); el.removeAttribute('marker-start');
+    });
+    if(!svg.querySelector('[data-vtip]')) return;
+    svg.querySelectorAll('text,title,desc,image,foreignObject,script').forEach(e => e.remove());
+    const ov = document.importNode(svg, true);
+    ov.setAttribute('class', 'viz-hot'); ov.setAttribute('aria-hidden', 'true'); ov.removeAttribute('width'); ov.removeAttribute('height');
+    if(vb.length !== 4) ov.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    const wrap = document.createElement('div'); wrap.className = 'viz-hotwrap';
+    if(img.style.maxWidth){ wrap.style.maxWidth = img.style.maxWidth; img.style.maxWidth = ''; }
+    img.parentNode.insertBefore(wrap, img); wrap.appendChild(img); wrap.appendChild(ov);
+  }
+  document.querySelectorAll('figure.viz').forEach(f => { try{ hover(f); }catch(e){} });
+})();
+/* VISUALS:JS:END */</script>
+<script>/* SRCVIEW:JS:BEGIN — Source Document: Markdown | Plain text (source_view_patch.py) */
+(function(){
+  const body = document.querySelector('.section .verbatim-body'); if(!body) return;
+  const pre = body.querySelector('pre'); if(!pre) return;
+  const SRC = (typeof VERBATIM === 'string' && VERBATIM.trim()) ? VERBATIM : pre.textContent;
+  if(!SRC.trim()) return;
+  const esc = t => t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function inline(t){
+    const keep = [];
+    const hold = h => '\u0000' + (keep.push(h) - 1) + '\u0000';
+    t = t.replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, (m, a, c) => hold('<code>' + esc(c.trim()) + '</code>'));
+    t = t.replace(/!\[([^\]]*)\]\(([^)\s]+)[^)]*\)/g, (m, a, u) => hold(/^https?:/i.test(u)
+      ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">[image: ' + esc(a || u) + ']</a>' : esc('[image: ' + (a || u) + ']')));
+    t = t.replace(/\[([^\]]+)\]\(([^)\s]+)[^)]*\)/g, (m, a, u) => /^https?:/i.test(u)
+      ? hold('<a href="' + esc(u) + '" target="_blank" rel="noopener">') + a + hold('</a>') : a);
+    t = t.replace(/<(https?:\/\/[^>\s]+)>/g, (m, u) => hold('<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'));
+    t = esc(t);
+    t = t.replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>').replace(/__(?=\S)([\s\S]*?\S)__/g, '<strong>$1</strong>');
+    t = t.replace(/(^|[^*\w])\*(?=\S)([^*]*?\S)\*(?!\*)/g, '$1<em>$2</em>').replace(/(^|[^_\w])_(?=\S)([^_]*?\S)_(?![_\w])/g, '$1<em>$2</em>');
+    t = t.replace(/~~(?=\S)([\s\S]*?\S)~~/g, '<del>$1</del>');
+    return t.replace(/\u0000(\d+)\u0000/g, (m, i) => keep[+i]);
+  }
+  const brk = (lines, l0) => lines.map((l, k) => { if(!l.trim()) return ''; const m = l.match(/^[ \t]+/); const ind = m ? m[0].replace(/\t/g,'    ').length : 0;
+    return '<span data-line="' + (l0 + k) + '">' + (ind ? '<span style="display:inline-block;width:' + (ind * 0.5) + 'em"></span>' : '') + inline(l.trim()) + '</span>'; }).filter(Boolean).join('<br>');
+  const lines = SRC.replace(/\r\n?/g, '\n').split('\n');
+  const isHr = l => /^ {0,3}([-*_])( *\1){2,} *$/.test(l);
+  const isFence = l => /^ {0,3}(`{3,}|~{3,})/.exec(l);
+  const listRe = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
+  const cells = l => l.trim().replace(/^\||\|$/g, '').split(/(?<!\\)\|/).map(c => c.trim().replace(/\\\|/g, '|'));
+  const isSep = l => /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(l) && l.includes('-');
+  const startsBlock = (l, n) => !l.trim() || /^ {0,3}#{1,6}\s/.test(l) || isFence(l) || /^ {0,3}>/.test(l) || listRe.test(l) || isHr(l)
+    || (l.includes('|') && n !== undefined && isSep(n));
+  function blocks(L, base){
+    let out = '', i = 0;
+    const at = k => ' data-line="' + (base + k) + '"';
+    if(base === 0 && /^---\s*$/.test(L[0] || '')){                 // YAML front matter
+      const e = L.findIndex((l, k) => k > 0 && /^(---|\.\.\.)\s*$/.test(l));
+      if(e > 0){ out += '<pre class="md-code md-fm"' + at(0) + '><code>' + esc(L.slice(0, e + 1).join('\n')) + '</code></pre>'; i = e + 1; }
+    }
+    while(i < L.length){
+      const l = L[i];
+      if(!l.trim()){ i++; continue; }
+      const f = isFence(l);
+      if(f){ const j0 = i; const mark = f[1][0], n = f[1].length; const buf = []; i++;
+        while(i < L.length && !new RegExp('^ {0,3}' + (mark === '`' ? '`' : '~') + '{' + n + ',}\\s*$').test(L[i])) buf.push(L[i++]);
+        i++; out += '<pre class="md-code"' + at(j0) + '><code>' + esc(buf.join('\n')) + '</code></pre>'; continue; }
+      let m = /^ {0,3}(#{1,6})\s+(.*?)\s*#*\s*$/.exec(l);
+      if(m){ out += '<h' + m[1].length + at(i) + '>' + inline(m[2]) + '</h' + m[1].length + '>'; i++; continue; }
+      if(isHr(l)){ out += '<hr' + at(i) + '>'; i++; continue; }
+      if(/^ {0,3}>/.test(l)){ const j0 = i, buf = [];
+        while(i < L.length && /^ {0,3}>/.test(L[i])) buf.push(L[i++].replace(/^ {0,3}> ?/, ''));
+        out += '<blockquote' + at(j0) + '>' + blocks(buf, base + j0) + '</blockquote>'; continue; }
+      if(l.includes('|') && i + 1 < L.length && isSep(L[i + 1])){
+        const j0 = i, head = cells(l); i += 2; let h = '<div class="md-tbl"' + at(j0) + '><table><thead><tr>' + head.map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>';
+        while(i < L.length && L[i].trim() && L[i].includes('|')){ const r = cells(L[i]); h += '<tr' + at(i) + '>' + head.map((x, k) => '<td>' + inline(r[k] || '') + '</td>').join('') + '</tr>'; i++; }
+        out += h + '</tbody></table></div>'; continue; }
+      m = listRe.exec(l);
+      if(m){ const j0 = i, ind = m[1].replace(/\t/g, '    ').length, ord = /\d/.test(m[2]);
+        let h = '';
+        while(i < L.length){
+          const mm = listRe.exec(L[i]);
+          if(!mm || mm[1].replace(/\t/g, '    ').length !== ind || /\d/.test(mm[2]) !== ord) break;
+          const li0 = i, item = [mm[3]]; i++;
+          while(i < L.length){
+            const x = L[i];
+            if(!x.trim()){ const nx = L[i + 1]; if(nx !== undefined && nx.trim() && (nx.match(/^\s*/)[0].length > ind)) { item.push(''); i++; continue; } break; }
+            const xm = listRe.exec(x);
+            if(xm && xm[1].replace(/\t/g, '    ').length <= ind) break;
+            if(!xm && !/^\s/.test(x) && startsBlock(x, L[i + 1])) break;
+            item.push(x.replace(new RegExp('^\\s{0,' + (ind + 4) + '}'), '')); i++;
+          }
+          const firstBlock = item.findIndex((x, k) => k > 0 && (startsBlock(x, item[k + 1]) && x.trim()));
+          const textPart = firstBlock < 0 ? item : item.slice(0, firstBlock), rest = firstBlock < 0 ? [] : item.slice(firstBlock);
+          h += '<li' + at(li0) + '>' + brk(textPart, base + li0) + (rest.length ? blocks(rest, base + li0 + firstBlock) : '') + '</li>';
+          while(i < L.length && !L[i].trim() && L[i + 1] !== undefined){ const nm = listRe.exec(L[i + 1]); if(nm && nm[1].replace(/\t/g,'    ').length === ind) i++; else break; }
+        }
+        const st = ord ? parseInt(m[2], 10) : 1;
+        out += (ord ? '<ol class="no-collapse"' + (st !== 1 ? ' start="' + st + '"' : '') : '<ul class="no-collapse"') + at(j0) + '>' + h + (ord ? '</ol>' : '</ul>'); continue; }
+      const j0 = i, buf = [l]; i++;
+      while(i < L.length && L[i].trim() && !startsBlock(L[i], L[i + 1])) buf.push(L[i++]);
+      out += '<p' + at(j0) + '>' + brk(buf, base + j0) + '</p>';
+    }
+    return out;
+  }
+  const md = document.createElement('div'); md.className = 'md-view'; md.innerHTML = blocks(lines, 0);
+  const sw = document.createElement('div'); sw.className = 'src-view'; sw.setAttribute('role', 'group');
+  sw.innerHTML = '<button type="button" data-v="md" title="Show the source formatted as markdown">Markdown</button>'
+               + '<button type="button" data-v="txt" title="Show the source exactly as written, as plain text">Plain text</button>';
+  pre.parentNode.insertBefore(sw, pre); pre.parentNode.insertBefore(md, pre);
+  function show(v){ md.hidden = v !== 'md'; pre.hidden = v === 'md';
+    sw.querySelectorAll('button').forEach(b => { const on = b.dataset.v === v; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+  sw.addEventListener('click', e => { const b = e.target.closest('button[data-v]'); if(b){ e.stopPropagation(); show(b.dataset.v); } });
+  show('md');
+  /* Search results for a source passage: in Markdown view, jump to the same spot in the rendered text. */
+  const doubled = SRC !== pre.textContent && pre.textContent === SRC.replace(/\n/g, '\n\n');
+  if(typeof jumpToEl === 'function'){
+    const orig = jumpToEl;
+    jumpToEl = function(el){
+      if(el && !md.hidden && pre.contains(el)){
+        const r = document.createRange(); r.setStart(pre, 0); r.setEnd(el, 0);
+        const before = r.toString(), lead = (el.textContent.match(/^\s*/) || [''])[0];
+        let line = (before + lead).split('\n').length - 1; if(doubled) line = Math.floor(line / 2);
+        let best = null;
+        md.querySelectorAll('[data-line]').forEach(x => { if(+x.dataset.line <= line) best = x; });
+        return orig(best || md);
+      }
+      return orig(el);
+    };
+  }
+})();
+/* SRCVIEW:JS:END */</script>
 </body>
 </html>
