@@ -2,6 +2,10 @@
 
 All notable changes to the rule set. Versions follow `ruleset.yaml`.
 
+## Site - 2026-11-25
+
+Not a rule change (the rule set stays at 2.0.0). The Rule Set page template (`site/ruleset.html`) gets the current vibe-dashboard page patches, so the GitHub Pages site and the Claude copy keep them on every rebuild: a **hide TOC** button and one **expand all / collapse all** toggle that shows *collapse all* whenever any section is open, house-style tooltips instead of the browser's own, the bright silver colour for the Glossary and References badges, and the plumbing for diagram tooltips and the Source Document view.
+
 ## Tests - 2026-11-22
 
 Not a rule change. Adds `tests/prompts/` (a test question and pass check for every active rule, plus three live tests on a Fusion design), the results format in `tests/results/`, a **Test result** issue form, and test kits for each AI (`tests/test-kit-<ai>.md` on the site). The build now warns about rules without a test and works out, from recorded results, which rules are backed as Proven.
